@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import LoginScreen from "./presentation/screens/LoginScreen";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { useAppTheme, ThemeProvider } from './data/ThemeContext'
+import React from 'react';
+import ThemeContainer from './presentation/screens/ThemeContainer';
+
 
 export default function App() {
+
+  const theme = useAppTheme();
+  const Stack = createNativeStackNavigator()
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="screens" component={ScreenWrapper} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+//aca agrego todas las screens para "encerrarlas" dentro del contenedor que le dal el color de fondo
+const ScreenWrapper = () => (
+  <ThemeContainer>
+    <LoginScreen />
+  </ThemeContainer>
+);
