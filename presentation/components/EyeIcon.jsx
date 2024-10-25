@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, useColorScheme } from 'react-native';
 
-const EyeIcon = ({ style }) => {
+const EyeIcon = () => {
   const colorScheme = useColorScheme(); // me dice si esta en dark mode o ñight
 
   const eyeImage = colorScheme === 'dark' 
@@ -9,7 +9,7 @@ const EyeIcon = ({ style }) => {
     : require('../../assets/white_eye_brisa.jpg'); // Imagen para modo claro
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container]}>
       <Image
         source={eyeImage}
         style={styles.image} // Aplica los estilos a la imagen

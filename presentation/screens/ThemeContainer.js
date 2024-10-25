@@ -6,13 +6,9 @@ import { useAppTheme } from '../../data/ThemeContext';
 const ThemeContainer = ({ children }) => {
   const theme = useAppTheme();
 
-  return (//por cada children (screen), la envuelvo en ese color
+  return ( 
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      {React.Children.map(children, (child) => (
-        <View style={styles.childContainer}>
-          {child}
-        </View>
-      ))}
+        {children}
     </View>
   );
 };
@@ -20,10 +16,8 @@ const ThemeContainer = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  childContainer: {
-    flex: 1, // Esto asegura que cada child se expanda si lo necesita
-  },
+    padding: 10, 
+  }
 });
 
 export default ThemeContainer;

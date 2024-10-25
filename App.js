@@ -1,30 +1,26 @@
 import LoginScreen from "./presentation/screens/LoginScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useAppTheme, ThemeProvider } from './data/ThemeContext'
+import { ThemeProvider } from './data/ThemeContext';
+import ThemeContainer from "./presentation/screens/ThemeContainer";
 import React from 'react';
-import ThemeContainer from './presentation/screens/ThemeContainer';
+import RegisterScreen from "./presentation/screens/RegisterScreen";
 
 
 export default function App() {
 
-  const theme = useAppTheme();
   const Stack = createNativeStackNavigator()
 
   return (
     <ThemeProvider>
+    <ThemeContainer> {/* El ThemeContainer envuelve todo */}
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="screens" component={ScreenWrapper} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeProvider>
+    </ThemeContainer>
+  </ThemeProvider>
   );
 }
-
-//aca agrego todas las screens para "encerrarlas" dentro del contenedor que le dal el color de fondo
-const ScreenWrapper = () => (
-  <ThemeContainer>
-    <LoginScreen />
-  </ThemeContainer>
-);

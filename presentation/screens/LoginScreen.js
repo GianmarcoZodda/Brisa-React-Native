@@ -5,11 +5,14 @@ import EyeIcon from '../../presentation/components/EyeIcon';
 import Btn from '../../presentation/components/Btn'
 import strings from '../../utils/strings/strings';
 import { useAppTheme } from "../../data/ThemeContext"
+import { useNavigation } from '@react-navigation/native'
 
 
 const LoginScreen = ({ /*agregar el context*/ }) => {//ahi le tengo que poner que reciba lkas funbciones que necesita, como las del vm o navegacion en kotlin...
   const theme = useAppTheme();
-  
+  const navigation = useNavigation()
+
+
   return (
     <View style={styles.container}>
       <EyeIcon />
@@ -29,18 +32,18 @@ const LoginScreen = ({ /*agregar el context*/ }) => {//ahi le tengo que poner qu
       />
 
      <Btn
-        onClick={{}} //aca le tengo que pasar la funcion del vm y navegar
+        onPress={{}} //aca le tengo que pasar la funcion del vm y navegar
         text={strings.iniciarSesion}
       />
 
-      <Text style={[styles.text, { color: theme.background }, styles ]}>{strings.sinCuenta}</Text>
+      <Text style={[styles.text, { color: theme.inverseBackground }, styles ]}>{strings.sinCuenta}</Text>
 
       <Btn
-        onClick={{}} //lo mismo....
+        onPress={()=>{navigation.navigate('Register')}}
         text={strings.registrarme}
       />
     </View>
-  );
+  ); 
 };
 
 
