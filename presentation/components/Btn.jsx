@@ -3,12 +3,12 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useAppTheme } from '../../data/ThemeContext'
 
 
-const Btn = ({ onPress, text, style }) => {
+const Btn = ({ onPress, text }) => {
     const theme = useAppTheme(); // accedo al theme (colores)
   
     return (
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: theme.primary }, style]}
+        style={[styles.button, { backgroundColor: theme.primary }]}
         onPress={onPress}>
 
         <Text style={[styles.text, { color: theme.background }]}>{text}</Text>

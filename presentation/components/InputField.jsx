@@ -2,14 +2,14 @@ import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import { useAppTheme } from '../../data/ThemeContext'
 
-const InputField = ({ value, onValueChange, label, isPassword = false, style }) => {//le defino la password en false x defecto
+const InputField = ({ value, onValueChange, label, isPassword = false }) => {//le defino la password en false x defecto
   const theme = useAppTheme();
  
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, { color: theme.inverseBackground }, style]}>{label}</Text>
+      <Text style={[styles.label, { color: theme.inverseBackground }]}>{label}</Text>
       <TextInput
-        style={[styles.input, { color: theme.background }, style]} 
+        style={[styles.input, { color: theme.background }]} 
         value={value}
         onChangeText={onValueChange} 
         secureTextEntry={isPassword} // Habilita la entrada segura si es una contraseña

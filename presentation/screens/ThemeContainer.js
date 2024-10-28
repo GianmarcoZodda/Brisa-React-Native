@@ -6,14 +6,12 @@ import { useAppTheme } from '../../data/ThemeContext';
 const ThemeContainer = ({ children }) => {
   const theme = useAppTheme();
 
-  return (//por cada children (screen), la envuelvo en ese color
+  return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      {React.Children.map(children, (child) => (
-        <View style={styles.childContainer}>
-          {child}
-        </View>
-      ))}
+    <View style={styles.childContainer}>
+      {children}
     </View>
+  </View>
   );
 };
 
