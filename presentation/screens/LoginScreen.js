@@ -31,7 +31,7 @@ const LoginScreen = ({ /*agregar el context*/ }) => {//ahi le tengo que poner qu
       />
 
      <Btn
-        onPress={() => {navigation.navigate("Home")}} //aca le tengo que pasar la funcion del vm y navegar
+        onPress={() => {navigation.navigate("Main")}} //aca le tengo que pasar la funcion del vm y navegar
         text={strings.iniciarSesion}
       />
 

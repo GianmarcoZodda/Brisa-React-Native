@@ -9,12 +9,11 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      <EyeIcon />
-
+   
       <InputField
         value=""
         onValueChange={() => {}} 
-        label="Email"
+        label="password"
       />
 
      
