@@ -1,44 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet} from 'react-native';
-import InputField from '../components/InputField'; 
-import EyeIcon from '../components/EyeIcon'; 
-import Btn from '../components/Btn'
+import { View, Text, StyleSheet } from 'react-native';
+import InputField from '../../presentation/components/InputField'; 
+import Btn from '../../presentation/components/Btn';
 import strings from '../../utils/strings/strings';
-import { useAppTheme } from "../../data/ThemeContext"
-import { useNavigation } from '@react-navigation/native'
+import { useAppTheme } from '../../data/ThemeContext';
+import { useNavigation } from '@react-navigation/native';
+import EyeIcon from "../components/EyeIcon";
 
-
-const LoginScreen = ({ /*agregar el context*/ }) => {//ahi le tengo que poner que reciba lkas funbciones que necesita, como las del vm o navegacion en kotlin...
+const LoginScreen = () => {
   const theme = useAppTheme();
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+  const [email, setEmail] = React.useState(''); 
+  const [password, setPassword] = React.useState(''); 
 
   return (
     <View style={styles.container}>
-      <EyeIcon />
-
+          <EyeIcon></EyeIcon>
       <InputField
-        value="" //despues le agrego logica, x ahora queda vacio
-        onValueChange={() => {}} // same....
+        value={email}
+        onValueChange={setEmail}
         label="Email"
       />
-
       <InputField
-        value="" 
-        onValueChange={() => {}} 
+        value={password}
+        onValueChange={setPassword}
         label="Password"
         isPassword={true}
-  
       />
-
-     <Btn
-        onPress={() => {}} //aca le tengo que pasar la funcion del vm y navegar
+      <Btn
+        onPress={() => { /* Aquí iría la lógica para iniciar sesión */ }}
         text={strings.iniciarSesion}
       />
-
-      <Text style={[styles.text, { color: theme.inverseBackground } ]}>{strings.sinCuenta}</Text>
+  <Text style={[styles.text, { color: theme.inverseBackground }]}>
+    {strings.sinCuenta} {}
+  </Text>
 
       <Btn
-        onPress={() => {navigation.navigate('Register')}} //lo mismo....
+        onPress={() => navigation.navigate('Register')}
         text={strings.registrarme}
       />
     </View>
@@ -48,13 +46,14 @@ const LoginScreen = ({ /*agregar el context*/ }) => {//ahi le tengo que poner qu
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center', // Centra verticalmente
-    alignItems: 'center', // Centra horizontalmente
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
   },
-  text:{
-marginBottom: 6,
-  }
+  text: {
+    marginBottom: 6,
+  },
 });
 
 export default LoginScreen;
+
