@@ -27,8 +27,9 @@ const LoginScreen = () => {
         label="Password"
         isPassword={true}
       />
-      <Btn
-        onPress={() => { /* Aquí iría la lógica para iniciar sesión */ }}
+
+     <Btn
+        onPress={() => {navigation.navigate("Main")}} //aca le tengo que pasar la funcion del vm y navegar
         text={strings.iniciarSesion}
       />
   <Text style={[styles.text, { color: theme.inverseBackground }]}>
