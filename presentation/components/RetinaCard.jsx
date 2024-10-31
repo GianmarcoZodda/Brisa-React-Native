@@ -1,17 +1,16 @@
 import React from 'react';
-import { Image, StyleSheet, ImageBackground } from 'react-native'
-
+import { Image, StyleSheet, ImageBackground } from 'react-native';
 
 const RetinaCard = ({ miniatura }) => {
     return (
-        <ImageBackground source={{ uri: miniatura }} style={estilos.card}>
+        <ImageBackground source={miniatura} style={estilos.card}>
             <Image
+                source={miniatura}
                 style={estilos.imagen}
                 resizeMode='contain'
             />
         </ImageBackground>
     );
-
 }
 
 const estilos = StyleSheet.create({
@@ -32,4 +31,5 @@ const estilos = StyleSheet.create({
         marginTop: 20
     }
 });
+
 export default RetinaCard;

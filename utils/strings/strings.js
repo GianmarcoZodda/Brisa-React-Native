@@ -5,6 +5,9 @@ const strings = {
     iniciarSesion: "INICIAR SESION",
     continuar: "CONTINUAR",
     logo: "Logo de Brisa",
+    subirImagen : "Subir Imagen",
+    logOut: "Cerrar sesion",
+    
 };
 
 export default strings;
