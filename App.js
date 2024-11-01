@@ -9,8 +9,6 @@ import { withThemeContainer } from "./presentation/screens/HocContainer";
 
 const Stack = createNativeStackNavigator()
 
-
-
 export default function App() {
 
   return (
