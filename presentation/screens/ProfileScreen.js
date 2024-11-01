@@ -14,7 +14,7 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   const subirImagen = () => {
-    navigation.navigate("Login");
+    navigation.navigate("SubirImagen");
   };
 
   const handleLogout = () => {
