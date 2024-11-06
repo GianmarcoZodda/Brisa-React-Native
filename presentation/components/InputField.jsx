@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useAppTheme } from '../../data/ThemeContext';
 
-const InputField = ({ value, onValueChange, label, isPassword = false }) => {
+const InputField = ({ value, onValueChange, label, isPassword = false , error}) => {
   const theme = useAppTheme();
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
 
@@ -26,6 +26,7 @@ const InputField = ({ value, onValueChange, label, isPassword = false }) => {
           </TouchableOpacity>
         )}
       </View>
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -58,6 +59,11 @@ const styles = StyleSheet.create({
     right: 10, // Espacio desde el borde derecho
     top: 5, // Ajusta este valor para subir el icono
     padding: 5, // Espaciado interno del botón
+  },
+  errorText: {
+    color: '#FF0000',
+    fontSize: 12,
+    marginTop: 4,  // Espacio entre el TextInput y el mensaje de error
   },
 });
 

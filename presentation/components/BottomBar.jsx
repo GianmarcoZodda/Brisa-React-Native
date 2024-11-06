@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useAppTheme } from '../../data/ThemeContext'
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { withThemeContainer } from "../screens/HocContainer"
+import { withThemeContainer } from "../hooks/HookContainer"
 import AddImgScreen from "../screens/AddImgScreen";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -68,7 +68,7 @@ const BottomTabNavigator  = () => {
                     tabBarIcon: ({focused}) => {
                         return <Ionicons 
                                 name={focused ? "add-circle" : "add-circle-outline"} 
-                                size={28} 
+                                size={32} 
                                 color={theme.primary}
                             />
                     }
@@ -82,7 +82,7 @@ const BottomTabNavigator  = () => {
                     tabBarIcon: ({focused}) => {
                         return <Ionicons 
                                 name={focused ? "help-circle" : "help-outline"} 
-                                size={28} 
+                                size={33} 
                                 color={theme.primary}
                             />
                     }
@@ -96,7 +96,7 @@ const BottomTabNavigator  = () => {
                         tabBarIcon: ({focused}) => {
                             return <Ionicons 
                                     name={focused ? "settings" : "settings-outline"} 
-                                    size={28} 
+                                    size={27} 
                                     color={theme.primary}
                                 />
                         }
