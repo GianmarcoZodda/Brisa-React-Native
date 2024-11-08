@@ -11,37 +11,35 @@ import { useAuth } from '../../data/AuthContext';
 const LoginScreen = () => {
   const theme = useAppTheme();
   const navigation = useNavigation();
-  const [email, setEmail] = useState(''); 
+  const [username, setUsername] = useState(''); 
   const [password, setPassword] = useState(''); 
   const { login, error, isAuthenticated } = useAuth();
-  const [emailError, setEmailError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
 
   //cada vez que se autentique el usuario, va al homescreen
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.navigate('Home');
+      navigation.navigate('Main');
     }
   }, [isAuthenticated]);
 
-  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
-
   const handleLogin = async () => {
     // Limpiar los errores de validación antes de la nueva validación
-    setEmailError('');
+    setUsernameError('');
     setPasswordError('');
 
     let valid = true;
 
-    if (!email || !password) {
-      if (!email) setEmailError(strings.emailVacio);
+    if (!username || !password) {
+      if (!username) setUsernameError(strings.usernameVacio);
       if (!password) setPasswordError(strings.passwordVacia);
       valid = false;
     }
 
-    if (email && !validateEmail(email)) {
-      setEmailError(strings.emailInvalido);
+    if (username && username.length < 2) {
+      setUsernameError(strings.usernameInvalido);
       valid = false;
     }
 
@@ -52,11 +50,11 @@ const LoginScreen = () => {
 
     if (valid) {
       try {
-        /*await login(email, password); // Realiza la llamada al servicio de login, por ahora lo comento porque me falta la api de juanse*/
-        navigation.navigate("Main")
+        console.log("estoy en el try de la screen de login")
+        await login(username, password); // Realiza la llamada al servicio de login, por ahora lo comento porque me falta la api de juanse*/
       } catch (err) {
         // Si ocurre un error durante el login
-        setPasswordError(err?.message || strings.errorInesperado);
+        setPasswordError(strings.errorInesperado);
       }
     }
   };
@@ -65,10 +63,10 @@ const LoginScreen = () => {
     <View style={styles.container}>
           <EyeIcon></EyeIcon>
       <InputField
-        value={email}
-        onValueChange={setEmail}
-        label="Email"
-        error={emailError}
+        value={username}
+        onValueChange={setUsername}
+        label="Username"
+        error={usernameError}
       />
 
       <InputField
