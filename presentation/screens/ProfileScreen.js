@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, FlatList, Text } from 'react-native';
 import logoTransp from '../../assets/logoTransparente.png';
 import Btn from '../../presentation/components/Btn';
 import { useNavigation } from '@react-navigation/native';
@@ -22,9 +22,9 @@ const ProfileScreen = () => {
   };
 
   const miniCards = [
-    { id: '1', miniatura: retina1 },
-    { id: '2', miniatura: retina2 },
-    { id: '3', miniatura: retina3 },
+    { id: '1', miniatura: retina1, fecha: '2024-11-10', horario: '14:30' },
+    { id: '2', miniatura: retina2, fecha: '2024-11-11', horario: '15:00' },
+    { id: '3', miniatura: retina3, fecha: '2024-11-12', horario: '16:15' },
   ];
 
   return (
@@ -37,7 +37,7 @@ const ProfileScreen = () => {
       <FlatList
         data={miniCards}
         renderItem={({ item }) => (
-          <RetinaCard miniatura={item.miniatura} />
+          <RetinaCard miniatura={item.miniatura} fecha={item.fecha} horario={item.horario} />
         )}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.list}
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 88,
     height: 88,
-    marginBottom: 16,
     alignSelf: 'flex-start',
   },
   list: {
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginBottom: 30,
+    marginBottom: 10,
     justifyContent: 'space-between',
   },
   button: {

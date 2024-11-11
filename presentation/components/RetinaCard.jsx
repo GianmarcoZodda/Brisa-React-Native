@@ -1,35 +1,36 @@
 import React from 'react';
-import { Image, StyleSheet, ImageBackground } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 
-const RetinaCard = ({ miniatura }) => {
+const RetinaCard = ({ miniatura, fecha, horario }) => {
     return (
-        <ImageBackground source={miniatura} style={estilos.card}>
-            <Image
-                source={miniatura}
-                style={estilos.imagen}
-                resizeMode='contain'
-            />
-        </ImageBackground>
+        <View style={styles.cardContainer}>
+            <Image source={miniatura} style={styles.imagen} resizeMode="contain" />
+            <View>
+                <Text style={styles.texto}>Fecha: {fecha}</Text>
+                <Text style={styles.texto}>Hora: {horario}</Text>
+            </View>
+        </View>
     );
 }
 
-const estilos = StyleSheet.create({
-    imagen: {
-        width: '100%',
-        height: 200,
-        marginBottom: 10
+const styles = StyleSheet.create({
+    cardContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
     },
-    card: {
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 50,
-        marginBottom: 10,
-        width: 340,
-        height: 320,
-        overflow: "hidden",
-        marginTop: 20
-    }
+    imagen: {
+        width: 70,
+        height: 70,
+        borderRadius: 100,
+        marginRight: 120,
+    },
+    texto: {
+        color: '#ddd',
+        fontSize: 20,
+    },
 });
 
 export default RetinaCard;

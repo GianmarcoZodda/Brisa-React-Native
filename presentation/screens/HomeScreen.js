@@ -1,29 +1,19 @@
 import React from 'react';
-import { View, StyleSheet, Image, } from 'react-native';
-import logoTransp from '../../assets/logoTransparente.png';
+import { View, StyleSheet } from 'react-native';
+import LogoImg from '../components/LogoImg';
+import { useAuth } from '../../data/AuthContext';
 import Btn from '../../presentation/components/Btn';
-import strings from '../../utils/strings/strings'; // Asegúrate de tener `strings` configurado correctamente
 import { useNavigation } from '@react-navigation/native';
 
-
-
 const HomeScreen = () => {
+  const { logout } = useAuth();
   const navigation = useNavigation();
-
-  const subirImagen = () => {
-    navigation.navigate("Login");
-  };
-
   return (
     <View style={styles.container}>
-      <Image 
-        source={logoTransp} 
-        style={styles.logo} 
-        resizeMode="contain" 
-      />
-      <Btn 
-        text={strings.logOut} 
-        onPress={subirImagen} 
+      <LogoImg></LogoImg>
+      <Btn
+        onPress={() => logout(navigation)} 
+        text="Cerrar Sesion"
       />
     </View>
   );
@@ -31,17 +21,9 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 10,
+    paddingTop: 65
   },
-  logo: {
-    width: 88,
-    height: 88,
-    marginBottom: 16,
-    position: 'absolute', // Posiciona la imagen en un lugar específico dentro de la pantalla
-    top: 30, // Margen desde la parte superior
-    left: 16, // Margen desde la izquierda
-  },
+
 });
 
 export default HomeScreen;

@@ -1,4 +1,4 @@
-import ThemeContainer from './ThemeContainer';
+import ThemeContainer from '../screens/ThemeContainer';
 
 export const withThemeContainer = (WrappedComponent) => {
     return (props) => (
