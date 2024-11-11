@@ -51,7 +51,7 @@ const LoginScreen = () => {
     if (valid) {
       try {
         console.log("estoy en el try de la screen de login")
-        await login(username, password); // Realiza la llamada al servicio de login, por ahora lo comento porque me falta la api de juanse*/
+        await login(username, password);
       } catch (err) {
         // Si ocurre un error durante el login
         setPasswordError(strings.errorInesperado);
