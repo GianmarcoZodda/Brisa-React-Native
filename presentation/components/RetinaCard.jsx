@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     texto: {
         color: '#ddd',
-        fontSize: 20,
+        fontSize: 16,
     },
 });
 
