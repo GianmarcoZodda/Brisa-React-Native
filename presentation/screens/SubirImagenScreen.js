@@ -7,6 +7,7 @@ import logoTransp from '../../assets/logoTransparente.png';
 const SubirImagenScreen = () => {
   const navigation = useNavigation();
   const [imagen, setImagen] = useState(null);
+  const [fechaSubida, setFechaSubida] = useState(null);
   
   const elegirImagen = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -24,7 +25,15 @@ const SubirImagenScreen = () => {
   };
 
   const subirImagen = () => {
-    navigation.navigate("Main");
+    // Captura la fecha y horario actuales
+    const fechaActual = new Date();
+    const fecha = fechaActual.toLocaleDateString();
+    const horario = fechaActual.toLocaleTimeString();
+
+    setFechaSubida({ fecha, horario });
+
+    // Navega a la pantalla principal con los datos de la imagen
+    navigation.navigate("Main", { imagen, fecha, horario });
   }
 
   return (
