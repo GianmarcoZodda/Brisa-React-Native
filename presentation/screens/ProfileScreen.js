@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, FlatList, Text, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Image, TouchableOpacity, FlatList, Text } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import logoTransp from '../../assets/logoTransparente.png';
 import Btn from '../../presentation/components/Btn';
-import { useNavigation } from '@react-navigation/native';
 import strings from '../../utils/strings/strings';
 import logoutIcon from '../../assets/logout.png';
 import RetinaCard from '../components/RetinaCard';
@@ -12,11 +12,29 @@ import retina3 from '../../assets/retina3.jpg';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  // Usuario ficticio de prueba
+  const route = useRoute();
+
   const [profile, setProfile] = useState({ 
     username: 'Juan Motok', 
     profilePic: require('../../assets/persona.jpg') 
   });
+  const [miniCards, setMiniCards] = useState([
+    { id: '1', miniatura: retina1, fecha: '2024-11-10', horario: '14:30' },
+    { id: '2', miniatura: retina2, fecha: '2024-11-11', horario: '15:00' },
+    { id: '3', miniatura: retina3, fecha: '2024-11-12', horario: '16:15' },
+  ]);
+
+  useEffect(() => {
+    if (route.params?.imagen) {
+      const nuevaImagen = {
+        id: `${miniCards.length + 1}`, // Genera un ID único
+        miniatura: { uri: route.params.imagen },
+        fecha: route.params.fecha,
+        horario: route.params.horario,
+      };
+      setMiniCards([nuevaImagen, ...miniCards]); 
+    }
+  }, [route.params]);
 
   const subirImagen = () => {
     navigation.navigate("SubirImagen");
@@ -26,42 +44,17 @@ const ProfileScreen = () => {
     console.log('Logica Logout');
   };
 
-  const miniCards = [
-    { id: '1', miniatura: retina1, fecha: '2024-11-10', horario: '14:30' },
-    { id: '2', miniatura: retina2, fecha: '2024-11-11', horario: '15:00' },
-    { id: '3', miniatura: retina3, fecha: '2024-11-12', horario: '16:15' },
-    { id: '4', miniatura: retina1, fecha: '2024-11-13', horario: '17:00' },
-    { id: '5', miniatura: retina2, fecha: '2024-11-14', horario: '18:30' },
-    { id: '6', miniatura: retina2, fecha: '2024-11-14', horario: '18:30' },
-    { id: '7', miniatura: retina2, fecha: '2024-11-14', horario: '18:30' },
-    { id: '8', miniatura: retina2, fecha: '2024-11-14', horario: '18:30' },
-    { id: '9', miniatura: retina2, fecha: '2024-11-14', horario: '18:30' },
-    { id: '10', miniatura: retina2, fecha: '2024-11-14', horario: '18:30' },
-
-  ];
-
   return (
     <View style={styles.container}>
-      {/* Logo en la esquina superior izquierda */}
-      <Image 
-        source={logoTransp} 
-        style={styles.logo} 
-        resizeMode="contain" 
-      />
+      <Image source={logoTransp} style={styles.logo} resizeMode="contain" />
 
-      {/* Contenedor de foto de perfil y nombre de usuario */}
       <View style={styles.profileContainer}>
-        <Image 
-          source={profile.profilePic} 
-          style={styles.profilePic} 
-          resizeMode="contain" 
-        />
+        <Image source={profile.profilePic} style={styles.profilePic} resizeMode="contain" />
         <Text style={styles.username}>{profile.username}</Text>
       </View>
 
       <Text style={styles.retinasText}>Mis Retinas:</Text>
 
-      {/* Lista de retinas en un cuadro con desplazamiento */}
       <View style={styles.retinaListContainer}>
         <FlatList
           data={miniCards}
@@ -73,21 +66,15 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Btn 
-          text={strings.subirImagen}
-          onPress={subirImagen} 
-        />
+        <Btn text={strings.subirImagen} onPress={subirImagen} />
         <TouchableOpacity onPress={handleLogout}>
-          <Image 
-            source={logoutIcon} 
-            style={styles.logoutIcon} 
-            resizeMode="contain" 
-          />
+          <Image source={logoutIcon} style={styles.logoutIcon} resizeMode="contain" />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
