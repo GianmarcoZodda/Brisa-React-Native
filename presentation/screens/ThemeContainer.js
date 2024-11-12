@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   childContainer: {
-    flex: 1, // Esto asegura que cada child se expanda si lo necesita
+    flex: 1, 
   },
 });
 
