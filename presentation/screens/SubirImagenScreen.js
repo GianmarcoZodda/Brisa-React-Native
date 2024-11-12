@@ -33,7 +33,7 @@ const SubirImagenScreen = () => {
     setFechaSubida({ fecha, horario });
 
     // Navega a la pantalla principal con los datos de la imagen
-    navigation.navigate("Main", { imagen, fecha, horario });
+    navigation.navigate("Perfil", { imagen, fecha, horario });
   }
 
   return (
