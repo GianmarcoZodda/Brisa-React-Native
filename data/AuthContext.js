@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { login as loginService } from './AuthService';
+import { register as registerService } from './AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -50,6 +51,23 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
     } 
   };
+
+  const register = async (username, email, password, secondPassword) => {
+    setError(null)
+    try{
+      console.log("entro al try del authcontext")
+      const registroToken = await registerService(username, email, password, secondPassword)
+      console.log("token al registrarme: ", registroToken)
+      if(registroToken){
+        setToken(registroToken);
+        setIsAuthenticated(true);
+      }
+    }catch(error){
+      setError(error.message)
+      setIsAuthenticated(false);
+      console.log("error: ", error)
+    }
+  }
   
   const logout = async (navigation) => {
     setToken(null);
@@ -65,7 +83,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, token }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, token, register }}>
       {children}
     </AuthContext.Provider>
   );
