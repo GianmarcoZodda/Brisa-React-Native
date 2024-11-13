@@ -13,7 +13,7 @@ const LogoImg = () => {
       <Image
         source={eyeImage}
         style={styles.image} // Aplica los estilos a la imagen
-        resizeMode="cover" // Asegúrate de que la imagen se recorte correctamente
+        resizeMode="contain" // Asegúrate de que la imagen se recorte correctamente
       />
     </View>
   );
@@ -22,11 +22,11 @@ const LogoImg = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
   image: {
     width: '95%', // Ancho de la imagen
-    height: 200, // Alto de la imagen
+    height: 30, // Alto de la imagen
   },
 });
 

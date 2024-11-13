@@ -4,10 +4,11 @@ import SubirScreen from "./presentation/screens/SubirImagenScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider } from './data/ThemeContext'
-import React from 'react';
 import BottomTabNavigator from "./presentation/components/BottomBar"
 import { withThemeContainer } from "./presentation/hooks/HookContainer";
 import { AuthProvider } from "./data/AuthContext";
+
+import React from 'react';
 
 const Stack = createNativeStackNavigator()
 
@@ -32,3 +33,4 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
