@@ -2,7 +2,7 @@ import { useColorScheme } from 'react-native';
 import colors from './colors/colors'
 
 const DarkTheme = {
-    background: '#333',
+    background: colors.grisOscuro,
     primary: colors.celeste,
     secondary: colors.azul,
     tertiary: colors.darkBlue,
@@ -10,7 +10,7 @@ const DarkTheme = {
   };
   
   const LightTheme = {
-    background: '#e4e4e4',
+    background: colors.blancoPastel,
     primary: colors.celeste,
     secondary: colors.azul,
     tertiary: colors.darkBlue,
