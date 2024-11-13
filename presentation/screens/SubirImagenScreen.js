@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   buttonContainer: {
+    
     marginTop: 20,
     width: '80%',
   },

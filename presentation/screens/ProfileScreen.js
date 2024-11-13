@@ -9,6 +9,7 @@ import RetinaCard from '../components/RetinaCard';
 import retina1 from '../../assets/retina1.jpg';
 import retina2 from '../../assets/retina2.jpg';
 import retina3 from '../../assets/retina3.jpg';
+import colors from '../../utils/colors/colors'
 
 const ProfileScreen = ({imagen, fecha, horario}) => {
   const navigation = useNavigation();
@@ -101,12 +102,12 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 18,
     marginLeft: 10,
-    color: '#ddd',
+    color: colors.darkBlue,
     top: 20,
   },
   retinasText: {
+    color: colors.darkBlue,
     fontSize: 25,
-    color: '#ddd',
     marginTop: 30,
   },
   retinaListContainer: {

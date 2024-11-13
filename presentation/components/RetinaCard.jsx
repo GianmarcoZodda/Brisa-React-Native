@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
+import colors from '../../utils/colors/colors'
+
 
 const RetinaCard = ({ miniatura, fecha, horario }) => {
     return (
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
         marginRight: 120,
     },
     texto: {
-        color: '#ddd',
+        color: colors.darkBlue,
         fontSize: 16,
     },
 });
