@@ -11,7 +11,7 @@ const InputField = ({ value, onValueChange, label, isPassword = false , error}) 
       <Text style={[styles.label, { color: theme.inverseBackground }]}>{label}</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          style={[styles.input, { color: theme.secondary }]}
+          style={[styles.input, { color: theme.primary }]}
           value={value}
           onChangeText={onValueChange}
           secureTextEntry={isPassword && !showPassword} // Cambia según el estado de showPassword
@@ -21,7 +21,7 @@ const InputField = ({ value, onValueChange, label, isPassword = false , error}) 
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeButton}>
             <Image
               source={require('../../assets/PassIcon.png')} // Usar require para importar la imagen
-              style={{ width: 24, height: 24 }} // Ajusta el tamaño de la imagen según lo necesites
+              style={[{ width: 24, height: 24 }, {color: theme.inverseBackground}]} // Ajusta el tamaño de la imagen según lo necesites
             />
           </TouchableOpacity>
         )}

@@ -85,6 +85,68 @@ const strings = {
     sumate: "Sumate!",
 
 
+
+    /*POLITICA DE PRIVACIDAD*/
+    privacidad: "Política de Privacidad",
+
+    privacidadBody: "En BRISA, nos comprometemos a proteger la privacidad de nuestros usuarios. Esta Política de Privacidad describe cómo recopilamos, usamos y protegemos la información personal que proporcionas al usar nuestra aplicación.",
+
+    privacidadBody1: "# Recopilación de Datos: Recopilamos solo los datos necesarios para el funcionamiento de la aplicación y para ofrecerte una mejor experiencia. Esto incluye información sobre el uso de la aplicación, como las imágenes de fondo de ojos proporcionadas para su análisis, y los datos que ingresas al interactuar con la aplicación.",
+
+    privacidadBody2: "# Uso de los Datos: Los datos que recopilamos son utilizados exclusivamente para los fines de diagnóstico de enfermedades oculares, como la retinopatía diabética. No compartimos ni vendemos tus datos personales a terceros. La información que se recoge se utiliza para mejorar la precisión de los análisis y para mejorar la aplicación en su conjunto.",
+
+    privacidadBody3: "# Seguridad de los Datos: Implementamos medidas de seguridad estándar para proteger la información personal que recopila nuestra aplicación.",
+
+    privacidadBody4: "# Derechos de los Usuarios: Tienes derecho a acceder, corregir o eliminar tus datos personales en cualquier momento. Si deseas ejercer estos derechos o tienes preguntas sobre nuestra Política de Privacidad, puedes contactarnos a través de la sección de contacto en la aplicación.",
+
+    privacidadBody5: "# Modificaciones: Podemos actualizar esta Política de Privacidad de vez en cuando. Cualquier cambio será comunicado oportunamente en la aplicación.",
+
+
+    /*TERMINOS Y CONDICIONES*/
+
+    terminos: "Términos y Condiciones",
+
+    terminosBody: "Al utilizar la aplicación BRISA, aceptas los siguientes términos y condiciones. Te recomendamos leer cuidadosamente este acuerdo antes de usar la aplicación.",
+
+    terminosBody1: "# Uso de la Aplicación: BRISA es una herramienta diseñada para apoyar a los profesionales de la salud en la detección de la retinopatía diabética. La aplicación utiliza inteligencia artificial para analizar imágenes de fondo de ojos y proporcionar un diagnóstico preliminar basado en estos análisis. Los resultados proporcionados no deben considerarse un diagnóstico médico definitivo y deben ser complementados con la evaluación de un profesional de la salud.",
+
+    terminosBody2: "# Responsabilidad del Usuario: El usuario es responsable de proporcionar imágenes de fondo de ojos de alta calidad para obtener resultados precisos. Además, debe ser consciente de que el uso de la aplicación no sustituye la consulta con un médico.",
+    
+    terminosBody3: "# Propiedad Intelectual: Todos los derechos de propiedad intelectual relacionados con la aplicación BRISA, incluidos los algoritmos de inteligencia artificial y la interfaz de usuario, son propiedad de los creadores de BRISA o están licenciados para su uso.",
+
+    terminosBody4: "# Modificaciones: Nos reservamos el derecho de modificar los términos y condiciones de la aplicación en cualquier momento. Cualquier cambio será comunicado de manera oportuna.",
+
+    terminosBody5: "# Exclusión de Responsabilidad: BRISA no será responsable de ningún daño o perjuicio derivado del uso de la aplicación o de los resultados obtenidos. La aplicación se ofrece “tal cual” y no garantiza que esté libre de errores.",
+
+
+
+    /*VERSION DE LA APP*/
+
+    version: "Versión de la App",
+
+    versionBody: "La aplicación BRISA se encuentra actualmente en la versión 1.0 (fase BETA). Esta versión incluye las funcionalidades básicas para el análisis de imágenes de fondo de ojos y la evaluación preliminar de la retinopatía diabética.",
+
+    versionBody1: "# Actualizaciones: La aplicación está en constante evolución y se actualizará regularmente para mejorar su precisión, funcionalidad y experiencia de usuario. Las futuras versiones incluirán nuevas características y mejoras basadas en el feedback de los usuarios y avances tecnológicos en el campo de la inteligencia artificial y la salud visual.",
+
+    versionBody2: "# Cómo Actualizar: Las actualizaciones de la aplicación estarán disponibles a través de la tienda de aplicaciones correspondiente (Google Play Store o Apple App Store). Recomendamos mantener la aplicación actualizada para acceder a las últimas mejoras y correcciones de seguridad.",
+
+
+    /*PREGUNTAS FRECUENTES*/
+    
+    preguntas: "Preguntas Frecuentes (FAQ)",
+
+    preg1titulo: "1. ¿Cómo funciona BRISA?",
+    preg1body: "#  BRISA utiliza algoritmos avanzados de inteligencia artificial para analizar imágenes de fondo de ojos proporcionadas por los usuarios. A partir de este análisis, la aplicación calcula la probabilidad de que el paciente presente retinopatía diabética y determina el grado de avance de la enfermedad. ",
+
+    preg2titulo: "2. ¿BRISA es una herramienta de diagnóstico médico?",
+    preg2body: "#  No, BRISA es una herramienta de apoyo. El diagnóstico final debe ser realizado por un profesional de la salud.",
+
+    preg3titulo: "3. ¿Qué tipo de imágenes necesito subir?",
+    preg3body: "#  Las imágenes deben ser de alta calidad, tomadas con una cámara especial para realizar el estudio de fondo de ojo y adecuadas para una evaluación precisa.",
+
+    preg4titulo: "4. ¿Mis datos están seguros?",
+    preg4body: "#  Sí, BRISA toma medidas de seguridad para proteger la información personal y las imágenes.",
+
 };
 
 export default strings;
