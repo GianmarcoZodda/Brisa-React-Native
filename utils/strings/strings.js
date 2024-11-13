@@ -28,10 +28,10 @@ const strings = {
     queEsBrisa: "¿Qué es BRISA?",
 
     queEsBrisaBody: 
-    "B.R.I.S.A, (Bloodflow Retinal Intelligent Analysis), es un proyecto nacido de un objetivo común de sus creadores: Ayudar a las personas",
+    "B.R.I.S.A, (Bloodflow Retinal Intelligent Analysis), es un proyecto nacido de un objetivo en común de sus creadores: Ayudar a las personas",
 
     queEsBrisaBody1:
-    "Brisa es una Inteligencia Artificial (IA) diseñada para apoyar a los profesionales de la salud en el área de visión, específicamente en la detección de la Retinopatía Diabética. A través del análisis inteligente de imágenes de fondo de ojos, Brisa no ofrece un diagnóstico final, sino que calcula un porcentaje de probabilidad de que el paciente pueda presentar retinopatía diabética. Además, en base a este porcentaje, permite identificar la etapa en la que se encuentra la afección, ya sea leve, moderada o avanzada.",
+    "Brisa es una Inteligencia Artificial, (IA), diseñada para apoyar a los profesionales de la salud en el área de la visión, específicamente en la detección de la Retinopatía Diabética. A través del análisis inteligente de imágenes de fondo de ojos, Brisa calcula un porcentaje de probabilidad de que el paciente pueda presentar retinopatía diabética. Además, en base a este porcentaje, permite identificar la etapa en la que se encuentra la afección, ya sea leve, moderada o avanzada.",
 
     queEsBrisaBody2: 
     "Este análisis facilita a los médicos el reconocimiento temprano de la enfermedad, contribuyendo a la prevención de daños mayores en los pacientes y apoyando una toma de decisiones más informada.",
@@ -44,7 +44,7 @@ const strings = {
 
     quienesSomosBody1: "Como proyecto final universitario, se nos encomendó realizar una aplicación completa de principio a fin, sin limitaciones técnicas o de alcance. Nuestro único desafío era crear algo a la altura de la enseñanza recibida en nuestra formación como Analistas de Sistemas.",
 
-    quienesSomosBody2: " Con una pasión compartida por la tecnología y el deseo de impactar positivamente en la vida de los demás, decidimos crear BRISA, un proyecto orientado a la salud. Brisa está diseñado tanto para el uso de médicos como de pacientes, buscando facilitar la detección de enfermedades oculares y contribuir a la calidad de vida de las personas afectadas por la retinopatía diabética.",
+    quienesSomosBody2: "Con una pasión compartida por la tecnología y el deseo de impactar positivamente en la vida de los demás, decidimos crear BRISA, un proyecto orientado a la salud. Brisa está diseñado tanto para el uso de médicos como de pacientes, buscando facilitar la detección de enfermedades oculares y contribuir a la calidad de vida de las personas afectadas por la retinopatía diabética.",
 
 
     /*NUESTRA MISION*/
