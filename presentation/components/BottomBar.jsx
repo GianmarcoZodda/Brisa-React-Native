@@ -5,7 +5,7 @@ import { useAppTheme } from '../../data/ThemeContext'
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { withThemeContainer } from "../hooks/HookContainer"
-import AddImgScreen from "../screens/AddImgScreen";
+import AddImgScreen from "../screens/SubirImagenScreen";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 
@@ -13,7 +13,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 const Tab = createBottomTabNavigator();
 
 
-const BottomTabNavigator  = () => {
+const BottomTabNavigator = () => {
     const theme = useAppTheme();
 
     const screenOptions = {
@@ -31,80 +31,80 @@ const BottomTabNavigator  = () => {
         }
     }
 
-    return(
+    return (
         <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen 
-                name="Home" 
-                component={withThemeContainer(HomeScreen)} 
+            <Tab.Screen
+                name="Home"
+                component={withThemeContainer(HomeScreen)}
                 options={{
-                    tabBarIcon: ({focused}) => {
-                        return <Ionicons 
-                                name={focused ? "home" : "home-outline"} 
-                                size={24} 
-                                color={theme.primary}
-                            />
+                    tabBarIcon: ({ focused }) => {
+                        return <Ionicons
+                            name={focused ? "home" : "home-outline"}
+                            size={24}
+                            color={theme.primary}
+                        />
                     }
                 }}
             />
 
-            <Tab.Screen 
-                name="Profile" 
-                component={withThemeContainer(ProfileScreen)} 
+            <Tab.Screen
+                name="Profile"
+                component={withThemeContainer(ProfileScreen)}
                 options={{
-                    tabBarIcon: ({focused}) => {
-                        return <Ionicons 
-                                name={focused ? "person" : "person-outline"} 
-                                size={24} 
-                                color={theme.primary}
-                            />
+                    tabBarIcon: ({ focused }) => {
+                        return <Ionicons
+                            name={focused ? "person" : "person-outline"}
+                            size={24}
+                            color={theme.primary}
+                        />
                     }
                 }}
             />
 
-            <Tab.Screen 
-                name="Add" 
-                component={withThemeContainer(AddImgScreen)} 
+            <Tab.Screen
+                name="Add"
+                component={withThemeContainer(AddImgScreen)}
                 options={{
-                    tabBarIcon: ({focused}) => {
-                        return <Ionicons 
-                                name={focused ? "add-circle" : "add-circle-outline"} 
-                                size={32} 
-                                color={theme.primary}
-                            />
+                    tabBarIcon: ({ focused }) => {
+                        return <Ionicons
+                            name={focused ? "add-circle" : "add-circle-outline"}
+                            size={32}
+                            color={theme.primary}
+                        />
                     }
                 }}
             />
 
-            <Tab.Screen 
-                name="About" 
-                component={withThemeContainer(AboutUsScreen)} 
+            <Tab.Screen
+                name="About"
+                component={withThemeContainer(AboutUsScreen)}
                 options={{
-                    tabBarIcon: ({focused}) => {
-                        return <Ionicons 
-                                name={focused ? "help-circle" : "help-outline"} 
-                                size={33} 
-                                color={theme.primary}
-                            />
+                    tabBarIcon: ({ focused }) => {
+                        return <Ionicons
+                            name={focused ? "help-circle" : "help-outline"}
+                            size={33}
+                            color={theme.primary}
+                        />
                     }
                 }}
             />
 
-            <Tab.Screen 
-                    name="Settings" 
-                    component={withThemeContainer(SettingsScreen)} 
-                    options={{
-                        tabBarIcon: ({focused}) => {
-                            return <Ionicons 
-                                    name={focused ? "settings" : "settings-outline"} 
-                                    size={27} 
-                                    color={theme.primary}
-                                />
-                        }
-                    }}
-                />
+            <Tab.Screen
+                name="Settings"
+                component={withThemeContainer(SettingsScreen)}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return <Ionicons
+                            name={focused ? "settings" : "settings-outline"}
+                            size={27}
+                            color={theme.primary}
+                        />
+                    }
+                }}
+            />
 
         </Tab.Navigator>
     )
 }
 
-export default BottomTabNavigator ;
+export default BottomTabNavigator;
