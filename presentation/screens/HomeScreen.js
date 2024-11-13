@@ -4,6 +4,7 @@ import LogoImg from '../components/LogoImg';
 import { useAuth } from '../../data/AuthContext';
 import Btn from '../../presentation/components/Btn';
 import { useNavigation } from '@react-navigation/native';
+import Desplegable from '../components/Desplegable';
 
 const HomeScreen = () => {
   const { logout } = useAuth();
@@ -15,6 +16,9 @@ const HomeScreen = () => {
         onPress={() => logout(navigation)} 
         text="Cerrar Sesion"
       />
+
+      <Desplegable title={"holaaa"} content={"que haces como andas"}></Desplegable>
+
     </View>
   );
 };

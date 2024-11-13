@@ -11,17 +11,17 @@ const InputField = ({ value, onValueChange, label, isPassword = false , error}) 
       <Text style={[styles.label, { color: theme.inverseBackground }]}>{label}</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          style={[styles.input, { color: '#FFFFFF' }]}
+          style={[styles.input, { color: theme.primary }]}
           value={value}
           onChangeText={onValueChange}
           secureTextEntry={isPassword && !showPassword} // Cambia según el estado de showPassword
-          placeholderTextColor="#FFFFFF"
+          /*placeholderTextColor="#FFFFFF"*/
         />
         {isPassword && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeButton}>
             <Image
               source={require('../../assets/PassIcon.png')} // Usar require para importar la imagen
-              style={{ width: 24, height: 24 }} // Ajusta el tamaño de la imagen según lo necesites
+              style={[{ width: 24, height: 24 }, {color: theme.inverseBackground}]} // Ajusta el tamaño de la imagen según lo necesites
             />
           </TouchableOpacity>
         )}
@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
   input: {
     flex: 1, // Permitir que el TextInput use el espacio disponible
     height: 40,
-    borderColor: '#ccc',
+    borderColor: '#41C1BA',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#333',
+    /*backgroundColor: "#B0B0B0",*/
   },
   eyeButton: {
     position: 'absolute', // Posicionamiento absoluto para colocar el botón dentro del TextInput

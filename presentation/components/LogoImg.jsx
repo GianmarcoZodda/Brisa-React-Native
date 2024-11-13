@@ -1,19 +1,23 @@
 import React from 'react';
-import { View, Image, StyleSheet, useColorScheme } from 'react-native';
+import { View, Image, StyleSheet, useColorScheme, Dimensions } from 'react-native';
+
 
 const LogoImg = () => {
-  const colorScheme = useColorScheme(); // me dice si esta en dark mode o ñight
+  const colorScheme = useColorScheme(); // me da el modo claro/oscuro
 
   const eyeImage = colorScheme === 'dark' 
-    ? require('../../assets/brisa.jpg') // Imagen para modo oscuro
-    : require('../../assets/white_brisa.jpg'); // Imagen para modo claro
+    ? require('../../assets/brisa.jpg') // img light mode
+    : require('../../assets/white_brisa.jpg'); // img dark
+
+  // uso dimens para obtener cual es el ancho de mi pantalla
+  const screenWidth = Dimensions.get('window').width;
 
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       <Image
         source={eyeImage}
-        style={styles.image} // Aplica los estilos a la imagen
-        resizeMode="cover" // Asegúrate de que la imagen se recorte correctamente
+        style={[styles.image, { width: screenWidth * 1.4 }]} // con esto, le digo q el logo tenga un widht del 80x100to
+        resizeMode="contain"
       />
     </View>
   );
@@ -22,11 +26,12 @@ const LogoImg = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    justifyContent: 'center',
     width: '100%'
   },
   image: {
-    width: '95%', // Ancho de la imagen
-    height: 200, // Alto de la imagen
+    height: undefined, // Deja que el alto se ajuste automáticamente
+    aspectRatio: 2, // Relación de aspecto, ajusta según la proporción de tu imagen
   },
 });
 
