@@ -10,7 +10,7 @@ import retina1 from '../../assets/retina1.jpg';
 import retina2 from '../../assets/retina2.jpg';
 import retina3 from '../../assets/retina3.jpg';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({imagen, fecha, horario}) => {
   const navigation = useNavigation();
   const route = useRoute();
 
