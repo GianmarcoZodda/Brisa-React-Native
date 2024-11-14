@@ -11,10 +11,14 @@ export const login = async (username, password) => {
       console.log("entro al try del servicio");
       const response = await axios.post(`${API_URL_BACKEND}login`, { username, password });
       console.log("response: ", response);
-
-      if (response.data && response.data.token) {
-          console.log("token: ", response.data.token);
-          return response.data.token;
+      console.log("user: ", response.data.user)
+      if (response.data && response.data.token && response.data.user) {
+          const token = response.data.token;
+          console.log("token: ", token);
+          const user = response.data.user;
+          console.log("user: ", user);
+          console.log("respuesta: ", [token, user])
+          return [token, user];
       } else {
           console.log(credencialesIncorrectas);
           throw new Error(credencialesIncorrectas);
@@ -49,8 +53,10 @@ export const register = async (username, email, password, secondPassword) => {
         console.log("response: ", response);
         const token = response.data.token;
         console.log("token en response data: ", token);
-        if(token){
-            return token;
+        const user = response.data.user;
+        console.log("user: ", user)
+        if(token && user){
+            return [token, user];
         }
     }catch (error){
         if (error.response) {

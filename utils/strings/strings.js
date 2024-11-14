@@ -147,6 +147,28 @@ const strings = {
     preg4titulo: "4. ¿Mis datos están seguros?",
     preg4body: "#  Sí, BRISA toma medidas de seguridad para proteger la información personal y las imágenes.",
 
+
+
+    /*HOME SCREEN*/
+
+    subtitle: "Explora las funcionalidades y aprende más sobre cómo BRISA puede ayudarte",
+
+    infoCard1: "Tu Información",
+
+    infoCard2: "Sube tus Estudios",
+
+    infoCard2Body: "Agrega tus estudios oculares para que BRISA pueda analizarlos y brindarte información detallada sobre tu salud ocular",
+
+    infoCard3: "Descubre más sobre BRISA",
+
+    infoCard3Body: "BRISA es una aplicación diseñada para mejorar el diagnóstico de la salud ocular. Conoce más sobre cómo nuestra tecnología avanzada puede ayudarte a prevenir enfermedades oculares", 
+
+    infoCard4: "Información de la App",
+
+    infoCard4Body: "En esta sección podrás leer sobre nuestra política de privacidad, términos y condiciones, la versión actual de la aplicación y consultar las preguntas frecuentes. Conoce cómo protegemos tus datos y te ofrecemos un servicio seguro",
+
+
+
 };
 
 export default strings;

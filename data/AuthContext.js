@@ -10,42 +10,55 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState(null);
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null)
 
   //esto se usa para saber si el user esta autenticado o no
   useEffect(() => {
-    const loadToken = async () => {
+    const loadData = async () => {
       try {
         const storedToken = await AsyncStorage.getItem('authToken');
+        const storedUser = JSON.parse(await AsyncStorage.getItem('user'));
         console.log("Token cargado desde AsyncStorage:", storedToken)
-        if (storedToken) {
+        console.log("User cargado desde AsyncStorage:", storedUser)
+        if (storedToken && storedUser) {
           setToken(storedToken);
+          setUser(storedUser);
           setIsAuthenticated(true);
           setError(null);
+           // agarro el user y el token
         }
       } catch (err) {
-        console.error("Error loading token:", err);
+        console.error("Error cargando la data:", err);
       }
     };
-    loadToken();
+    loadData();
   }, []);
+
+   
 
 
   const login = async (username, password) => {
     setError(null); //pongo el error en nulo para sacar el anterior, sui es q habia
+   
     try {
-      const authToken = await loginService(username, password);    //uso el service
+      const [authToken, userData] = await loginService(username, password);   
       console.log("llame al servicio")
-      if (authToken) {
-        console.log("authtoken: "+authToken)
+
+      if (authToken && userData) {
+      console.log("authtoken: "+authToken)
+      console.log("user: "+userData)
+
       setToken(authToken);
+      setUser(userData);
       setIsAuthenticated(true);
+
+      await AsyncStorage.setItem('authToken', authToken);
+      await AsyncStorage.setItem('user', JSON.stringify(userData));
+
+      console.log("entre en el try del context. Token: "+authToken)
+      console.log("entre en el try del context. user: "+userData)
       }
-      try {
-        await AsyncStorage.setItem('authToken', authToken);
-        console.log("entre en el try del context. Token: "+authToken)
-      } catch (err) {
-        console.error("Error saving token:", err);
-      }
+    
     } catch (err) {
       setError(err.message);
       setIsAuthenticated(false);
@@ -56,11 +69,17 @@ export const AuthProvider = ({ children }) => {
     setError(null)
     try{
       console.log("entro al try del authcontext")
-      const registroToken = await registerService(username, email, password, secondPassword)
-      console.log("token al registrarme: ", registroToken)
-      if(registroToken){
+      const [registroToken, userData] = await registerService(username, email, password, secondPassword);
+      console.log("token al registrarme: ", registroToken);
+      console.log("user al registrarme: ", userData);
+
+      if(registroToken && userData){
         setToken(registroToken);
+        setUser(userData)
         setIsAuthenticated(true);
+
+        await AsyncStorage.setItem('authToken', registroToken);
+        await AsyncStorage.setItem('user', JSON.stringify(userData));
       }
     }catch(error){
       setError(error.message)
@@ -71,19 +90,21 @@ export const AuthProvider = ({ children }) => {
   
   const logout = async (navigation) => {
     setToken(null);
+    setUser(null);
     setIsAuthenticated(false);
     setError(null);
     try {
       await AsyncStorage.removeItem('authToken');
-      console.log("Token eliminado de AsyncStorage");
+      await AsyncStorage.removeItem('user');
+      console.log("Token y User eliminado de AsyncStorage");
       navigation.navigate("Login")
     } catch (err) {
-      console.error("Error removing token:", err);
+      console.error("Error al eliminar el token y el user:", err);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, token, register }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, token, register, user }}>
       {children}
     </AuthContext.Provider>
   );
