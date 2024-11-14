@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { login as loginService } from './AuthService';
 import { register as registerService } from './AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import emailRegex from '../utils/Constants';
 
 const AuthContext = createContext();
 
@@ -103,8 +103,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+
+  const validateEmail = (email) => {
+    if (email && !emailRegex.test(email)) { //esa funcion de test valida que lo que tiene entre () cumpla con lo que esta en regex
+      return false;
+    }
+    return true;
+  }
+
+  const validateLength = (text, minLength) => {
+    if (text.length < minLength) {
+      return false;
+    }
+    return true;
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, token, register, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, token, register, user, validateEmail, validateLength }}>
       {children}
     </AuthContext.Provider>
   );

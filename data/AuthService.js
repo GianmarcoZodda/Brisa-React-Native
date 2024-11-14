@@ -2,14 +2,14 @@ import axios from 'axios';
 import API_URL_BACKEND from "./api/apiUrl"
 import {credencialesIncorrectas, errorDeConexion, errorDesconocido} from '../utils/strings/strings';
 
-export const login = async (username, password) => {
+export const login = async (email, password) => {
   console.log(API_URL_BACKEND);
-  console.log(username);
+  console.log(email);
   console.log(password);
 
   try {
       console.log("entro al try del servicio");
-      const response = await axios.post(`${API_URL_BACKEND}login`, { username, password });
+      const response = await axios.post(`${API_URL_BACKEND}login`, { email, password });
       console.log("response: ", response);
       console.log("user: ", response.data.user)
       if (response.data && response.data.token && response.data.user) {
@@ -40,16 +40,15 @@ export const login = async (username, password) => {
   }
 };
 
-export const register = async (username, email, password, secondPassword) => {
+export const register = async (username, email, password) => {
     console.log("estoy en el servicio");
     console.log(username);
     console.log(email);
     console.log(password);
-    console.log(secondPassword);
 
     try{
         console.log("entro al try del servicio para el registro");
-        const response = await axios.post(`${API_URL_BACKEND}register`, { username, email, password, secondPassword });
+        const response = await axios.post(`${API_URL_BACKEND}register`, { username, email, password });
         console.log("response: ", response);
         const token = response.data.token;
         console.log("token en response data: ", token);

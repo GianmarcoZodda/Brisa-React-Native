@@ -6,7 +6,6 @@ import { StyleSheet, View, Text } from "react-native";
 import React, { useState }  from 'react';
 import { useAuth } from '../../data/AuthContext';
 
-
 const RegisterScreen = () => {
 
     const [username, setUsername] = useState(''); 
@@ -14,13 +13,12 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState(''); 
     const [secondPassword, setSecondPassword] = useState('');
 
-    const { register, error } = useAuth();
+    const { register, error, validateEmail, validateLength } = useAuth();
 
     const [usernameError, setUsernameError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [secondPasswordError, setSecondPasswordError] = useState('');
-
 
 
     const handleRegister = async () => {
@@ -31,32 +29,23 @@ const RegisterScreen = () => {
         setSecondPasswordError('')
     
         let valid = true;
+
+        const usernameLower = username.trim().toLowerCase();  
+        const emailLower = email.trim().toLowerCase();
     
-        if (!username || !email || !password || !secondPassword) {
-          if (!username) setUsernameError(strings.usernameVacio);
-          if (!email) setEmailError(strings.emailVacio);
-          if (!password) setPasswordError(strings.passwordVacia);
-          if (!secondPassword) setSecondPasswordError(strings.confirmeContraseña);
+        if (!validateFieldsEmpty(usernameLower, emailLower, password, secondPassword)) valid = false;
+        if (!validateEmail(emailLower)) {
+          setEmailError(strings.emailInvalido);
           valid = false;
         }
-    
-        if (username && username.length < 2) {
+        if (!validateLength(usernameLower, 2)) {
           setUsernameError(strings.usernameInvalido);
           valid = false;
         }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (email && !emailRegex.test(email)) { //esa funcion de test valida que lo que tiene entre () cumpla con lo que esta en regex
-            setEmailError(strings.emailInvalido);
-            valid = false;
-          }
-    
-        if (password && password.length < 8) {
+        if (!validateLength(password, 8)) {
           setPasswordError(strings.passwordInvalida);
           valid = false;
         }
-
         if ((password && secondPassword) && password != secondPassword) {
             setSecondPasswordError(strings.contraseñasDistintas);
             valid = false;
@@ -65,7 +54,7 @@ const RegisterScreen = () => {
         if (valid) {
           try {
             console.log("estoy en el try de la screen de register")
-            await register(username, email, password, secondPassword);
+            await register(usernameLower, emailLower, password);
           } catch (err) {
             // Si ocurre un error durante el registro
             setPasswordError(strings.errorInesperado);
@@ -73,6 +62,16 @@ const RegisterScreen = () => {
         }
       };
 
+      const validateFieldsEmpty = (username, email, password, secondPassword) => {
+        if (!username || !email || !password || !secondPassword) {
+          if (!username) setUsernameError(strings.usernameVacio);
+          if (!email) setEmailError(strings.emailVacio);
+          if (!password) setPasswordError(strings.passwordVacia);
+          if (!secondPassword) setSecondPasswordError(strings.confirmeContraseña);
+          return false;
+        }
+        return true;
+      }
 
 
 return(
