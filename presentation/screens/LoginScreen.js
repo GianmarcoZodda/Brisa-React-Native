@@ -14,7 +14,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState(''); 
-  const { login, error, isAuthenticated, validateEmail, validateLength } = useAuth();
+  const { login, error, setError, isAuthenticated, validateEmail, validateLength } = useAuth();
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
@@ -92,7 +92,10 @@ const LoginScreen = () => {
       </Text>
 
       <Btn
-        onPress={() => navigation.navigate('Register')}
+        onPress={() => {
+          setError(null);
+          navigation.navigate('Register');
+        }}
         text={strings.registrarme}
       />
 

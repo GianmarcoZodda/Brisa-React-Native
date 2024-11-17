@@ -9,7 +9,7 @@ import strings from '../../utils/strings/strings';
 
 const HomeScreen = () => {
     const theme = useTheme();
-    const { logout, user } = useAuth(); //me agarro los datos del user
+    const { logout, user, deleteAccount } = useAuth(); //me agarro los datos del user
     const navigation = useNavigation();
 
     return (
@@ -55,6 +55,12 @@ const HomeScreen = () => {
                 onPress={() => logout(navigation)} 
                 text="Cerrar Sesión"
                 backgroundColor={theme.secondary}
+            />
+
+            <Btn
+                onPress={() => deleteAccount(navigation)} 
+                text="Eliminar Cuenta"
+                backgroundColor={theme.buttonRed}
             />
         </ScrollView>
     );

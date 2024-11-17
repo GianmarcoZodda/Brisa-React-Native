@@ -26,7 +26,7 @@ const RegisterScreen = () => {
         setUsernameError('');
         setEmailError('')
         setPasswordError('');
-        setSecondPasswordError('')
+        setSecondPasswordError('');
     
         let valid = true;
 

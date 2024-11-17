@@ -74,3 +74,34 @@ export const register = async (username, email, password) => {
     }
 };
 
+
+export const deleteAccount = async (id, token) => {
+    try {
+      const response = await axios.delete(`${API_URL_BACKEND}users/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Enviar el token en los headers
+        },
+      });
+  
+       // Verificar si la respuesta es exitosa
+    if (response.status === 200) {
+        return response; // Retornar la respuesta si todo salió bien
+      } else {
+        throw new Error("No se pudo eliminar la cuenta.");
+      }
+    } catch (error) {
+      if (error.response) {
+        // Error del servidor
+        throw new Error(error.response.data.message || "Error en el servidor.");
+      } else if (error.request) {
+        // Error en la solicitud
+        console.log("Erorr de conexion")
+        throw new Error(errorDeConexion);
+      } else {
+        // Otros errores
+        console.log("Error desconocido")
+        throw new Error(errorDesconocido);
+      }
+    }
+  };
+

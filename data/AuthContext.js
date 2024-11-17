@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { login as loginService } from './AuthService';
 import { register as registerService } from './AuthService';
+import { deleteAccount as deleteAccountService } from './AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import emailRegex from '../utils/Constants';
 
@@ -37,6 +38,50 @@ export const AuthProvider = ({ children }) => {
    
 
 
+
+  const deleteAccount = async (navigation) => {
+    setError(null);
+    
+    try {
+      // Enviar solicitud al backend para eliminar la cuenta
+      const token = await AsyncStorage.getItem('authToken');
+      const user = JSON.parse(await AsyncStorage.getItem('user'));
+      console.log("id: ", user.id)
+      console.log("authToken: ", token)
+
+      if (!token || !user) {
+        throw new Error("No se encontró token o user.");
+      }
+      
+      const response = await deleteAccountService(user.id, token);
+  
+      if (response.status === 200) {
+        console.log('Cuenta eliminada con éxito');
+        
+        // Borrar datos locales (token y usuario)
+        await AsyncStorage.removeItem('authToken');
+        await AsyncStorage.removeItem('user');
+        console.log("user: ", user)
+        console.log("authToken: ", token)
+        
+        // Actualizar el estado en el contexto
+        setToken(null);
+        setUser(null);
+        setIsAuthenticated(false);
+        setError(null);
+  
+        // Redirigir al usuario a la pantalla de login o cualquier otra página
+        navigation.navigate('Login');
+      }
+    } catch (err) {
+      setError(err.message);
+      console.error('Error al eliminar la cuenta:', err);
+    }
+  };
+
+
+
+
   const login = async (username, password) => {
     setError(null); //pongo el error en nulo para sacar el anterior, sui es q habia
    
@@ -65,11 +110,11 @@ export const AuthProvider = ({ children }) => {
     } 
   };
 
-  const register = async (username, email, password, secondPassword) => {
+  const register = async (username, email, password) => {
     setError(null)
     try{
       console.log("entro al try del authcontext")
-      const [registroToken, userData] = await registerService(username, email, password, secondPassword);
+      const [registroToken, userData] = await registerService(username, email, password);
       console.log("token al registrarme: ", registroToken);
       console.log("user al registrarme: ", userData);
 
@@ -119,7 +164,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, token, register, user, validateEmail, validateLength }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, error, setError,  token, register, user, validateEmail, validateLength, deleteAccount }}>
       {children}
     </AuthContext.Provider>
   );
