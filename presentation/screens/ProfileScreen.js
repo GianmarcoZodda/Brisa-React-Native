@@ -10,12 +10,11 @@ import retina1 from '../../assets/retina1.jpg';
 import retina2 from '../../assets/retina2.jpg';
 import retina3 from '../../assets/retina3.jpg';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({imagen, fecha, horario}) => {
   const navigation = useNavigation();
   const route = useRoute();
 
   const [profile, setProfile] = useState({ 
-    username: 'Juan Motok', 
     profilePic: require('../../assets/persona.jpg') 
   });
   const [miniCards, setMiniCards] = useState([
@@ -27,7 +26,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (route.params?.imagen) {
       const nuevaImagen = {
-        id: `${miniCards.length + 1}`, // Genera un ID único
+        id: `${miniCards.length + 1}`, 
         miniatura: { uri: route.params.imagen },
         fecha: route.params.fecha,
         horario: route.params.horario,

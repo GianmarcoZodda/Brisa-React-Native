@@ -8,7 +8,7 @@ const SubirImagenScreen = () => {
   const navigation = useNavigation();
   const [imagen, setImagen] = useState(null);
   const [fechaSubida, setFechaSubida] = useState(null);
-  
+
   const elegirImagen = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -24,17 +24,48 @@ const SubirImagenScreen = () => {
     }
   };
 
-  const subirImagen = () => {
-    // Captura la fecha y horario actuales
+  const subirImagen = async () => {
+    if (!imagen) {
+      Alert.alert("Error", "Primero selecciona una imagen.");
+      return;
+    }
+
     const fechaActual = new Date();
     const fecha = fechaActual.toLocaleDateString();
     const horario = fechaActual.toLocaleTimeString();
-
     setFechaSubida({ fecha, horario });
 
-    // Navega a la pantalla principal con los datos de la imagen
-    navigation.navigate("Perfil", { imagen, fecha, horario });
-  }
+    try {
+      const formData = new FormData();
+      formData.append('file', {
+        uri: imagen,
+        type: 'image/jpeg',
+        name: 'imagen.jpg',
+      });
+
+      // Verificar si la imagen es una retina
+      const response = await fetch('http://192.168.100.201:3000/isRetina', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.result) {
+        Alert.alert("Éxito", "La imagen es una retina.");
+        // Aquí puedes proceder con el análisis adicional o la lógica adicional
+        navigation.navigate("Profile", { imagen, fecha, horario });
+      } else {
+        Alert.alert("No es una retina", "La imagen seleccionada no es una retina.");
+      }
+    } catch (error) {
+      console.error("Error al verificar si es retina:", error);
+      Alert.alert("Error", "Hubo un problema al verificar si la imagen es una retina.");
+    }
+  };
 
   return (
     <View style={styles.container}>

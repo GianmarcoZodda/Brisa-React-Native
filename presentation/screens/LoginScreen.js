@@ -8,13 +8,14 @@ import { useNavigation } from '@react-navigation/native';
 import EyeIcon from "../components/EyeIcon";
 import { useAuth } from '../../data/AuthContext';
 
+
 const LoginScreen = () => {
   const theme = useAppTheme();
   const navigation = useNavigation();
-  const [username, setUsername] = useState(''); 
+  const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState(''); 
-  const { login, error, isAuthenticated } = useAuth();
-  const [usernameError, setUsernameError] = useState('');
+  const { login, error, setError, isAuthenticated, validateEmail, validateLength } = useAuth();
+  const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
 
@@ -27,23 +28,18 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     // Limpiar los errores de validación antes de la nueva validación
-    setUsernameError('');
+    setEmailError('');
     setPasswordError('');
 
     let valid = true;
 
-    if (!username || !password) {
-      if (!username) setUsernameError(strings.usernameVacio);
-      if (!password) setPasswordError(strings.passwordVacia);
+    const emailLower = email.trim().toLowerCase();
+    if (!validateEmailAndPaswordEmpty(emailLower, password)) valid = false;
+    if (!validateEmail(emailLower)) {
+      setEmailError(strings.emailInvalido);
       valid = false;
     }
-
-    if (username && username.length < 2) {
-      setUsernameError(strings.usernameInvalido);
-      valid = false;
-    }
-
-    if (password && password.length < 8) {
+    if (!validateLength(password, 8)) {
       setPasswordError(strings.passwordInvalida);
       valid = false;
     }
@@ -51,7 +47,7 @@ const LoginScreen = () => {
     if (valid) {
       try {
         console.log("estoy en el try de la screen de login")
-        await login(username, password); // Realiza la llamada al servicio de login, por ahora lo comento porque me falta la api de juanse*/
+        await login(emailLower, password);
       } catch (err) {
         // Si ocurre un error durante el login
         setPasswordError(strings.errorInesperado);
@@ -59,14 +55,23 @@ const LoginScreen = () => {
     }
   };
 
+  const validateEmailAndPaswordEmpty = (email, password) => {
+    if (!email || !password) {
+      if (!email) setEmailError(strings.emailVacio);
+      if (!password) setPasswordError(strings.passwordVacia);
+      return false;
+    }
+    return true;
+  }
+
   return (
     <View style={styles.container}>
           <EyeIcon></EyeIcon>
       <InputField
-        value={username}
-        onValueChange={setUsername}
-        label="Username"
-        error={usernameError}
+        value={email}
+        onValueChange={setEmail}
+        label="Email"
+        error={emailError}
       />
 
       <InputField
@@ -87,7 +92,10 @@ const LoginScreen = () => {
       </Text>
 
       <Btn
-        onPress={() => navigation.navigate('Register')}
+        onPress={() => {
+          setError(null);
+          navigation.navigate('Register');
+        }}
         text={strings.registrarme}
       />
 

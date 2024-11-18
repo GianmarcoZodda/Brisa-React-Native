@@ -7,9 +7,8 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic", 
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/white_brisa.jpg",
+      "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": true
