@@ -1,62 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
-  StyleSheet,
   FlatList,
   Text,
+  StyleSheet,
+  Alert,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import Btn from '../../presentation/components/Btn';
-import RetinaCard from '../components/RetinaCard';
-import { useAuth } from '../../data/AuthContext';
-import { useTheme } from '../../utils/theme';
-import EyeIcon from '../components/EyeIcon';
-import retina1 from '../../assets/retina1.jpg';
-import retina2 from '../../assets/retina2.jpg';
-import retina3 from '../../assets/retina3.jpg';
+import API_URL_BACKEND from '../../data/api/apiUrl'; 
+import { useAuth } from '../../data/AuthContext'; 
+import RetinaCard from '../components/RetinaCard'; 
+import { useTheme } from '../../utils/theme'; 
+import strings from '../../utils/strings/strings';
+import EyeIcon from "../components/EyeIcon";
 
 const PerfilScreen = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const { user } = useAuth(); // Obtenemos datos del usuario y función logout del contexto
+  const { user, token } = useAuth(); 
   const [miniCards, setMiniCards] = useState([]);
   const theme = useTheme();
 
-  // Manejo de imágenes subidas
-  useEffect(() => {
-    if (route.params?.imagen) {
-      const nuevaImagen = {
-        id: `${miniCards.length + 1}`,
-        miniatura: { uri: route.params.imagen },
-        fecha: route.params.fecha,
-        horario: route.params.horario,
-      };
-      setMiniCards((prevCards) => [nuevaImagen, ...prevCards]);
-    }
-  }, [route.params]);
+  const obtenerImagenes = async () => {
+    try {
+      const response = await fetch(`${API_URL_BACKEND}imagenes`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json',
+        },
+      });
 
-  const subirImagen = () => {
-    navigation.navigate('SubirImagen');
+      if (!response.ok) {
+        throw new Error('Error al obtener las imágenes');
+      }
+
+      const data = await response.json();
+      if (data && data.images) {
+        const images = data.images.map((image, index) => ({
+          id: index.toString(),
+          miniatura: { uri: image.url },
+          fecha: image.fecha,
+          horario: image.horario,
+        }));
+        setMiniCards(images);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'No se pudieron cargar las imágenes');
+      console.error(error);
+    }
   };
 
-
+  // Verifica si 'user' está presente antes de intentar renderizar la información
   if (!user) {
-    navigation.navigate("Login")
+    return (
+      <View style={styles.container}>
+        <Text>Cargando...</Text> {/* O redirigir a una pantalla de carga */}
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
       <EyeIcon />
+      <Text style={[styles.username, { color: theme.inverseBackground }]}>
+        {user.username || 'Usuario'}
+      </Text>
+      <Text style={[styles.email, { color: theme.inverseBackground }]}>
+        {user.email || 'Correo no disponible'}
+      </Text>
 
-      <View style={styles.profileContainer}>
-        <Text style={[styles.username, {color: theme.inverseBackground}]}>{user.username || 'Usuario'}</Text>
-        <Text style={[styles.email, {color: theme.inverseBackground}]}>{user.email || 'Correo no disponible'}</Text>
-      </View>
-
-      <Text style={[styles.retinasText, {color: theme.inverseBackground}]}>Mis Estudios:</Text>
+      {/* Mostrar las imágenes si existen */}
+      <Text style={[styles.retinasText, { color: theme.inverseBackground }]}>
+        {strings.estudios}
+      </Text>
 
       {miniCards.length === 0 ? (
-        <Text style={[styles.noImagesText, {color: theme.inverseBackground}]}>Todavía no tienes imágenes de tus estudios.</Text>
+        <Text style={[styles.noImagesText, { color: theme.inverseBackground }]}>
+          No tienes estudios registrados.
+        </Text>
       ) : (
         <FlatList
           data={miniCards}
@@ -72,30 +91,10 @@ const PerfilScreen = () => {
           contentContainerStyle={styles.retinaListContent}
         />
       )}
-
-      <Text style={styles.exampleImagesTitle}>Imágenes de ejemplo:</Text>
-      <FlatList
-        data={[
-          { id: '1', miniatura: retina1, fecha: '2024-11-10', horario: '14:30' },
-          { id: '2', miniatura: retina2, fecha: '2024-11-11', horario: '15:00' },
-          { id: '3', miniatura: retina3, fecha: '2024-11-12', horario: '16:15' },
-        ]}
-        renderItem={({ item }) => (
-          <RetinaCard
-            miniatura={item.miniatura}
-            fecha={item.fecha}
-            horario={item.horario}
-          />
-        )}
-        keyExtractor={(item) => item.id}
-        style={styles.exampleList}
-        contentContainerStyle={styles.exampleListContent}
-      />
-
-      <Btn text="Subir Imagen" onPress={subirImagen} />
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -105,10 +104,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 80,
     marginTop: 30,
-  },
-  profileContainer: {
-    alignItems: 'center',
-    marginVertical: 20,
   },
   username: {
     fontSize: 20,
@@ -131,19 +126,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   retinaListContent: {
-    paddingBottom: 20,
-  },
-  exampleImagesTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#444',
-    marginVertical: 10,
-  },
-  exampleList: {
-    flex: 1,
-    width: '100%',
-  },
-  exampleListContent: {
     paddingBottom: 20,
   },
 });

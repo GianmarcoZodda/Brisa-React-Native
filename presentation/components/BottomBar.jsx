@@ -9,6 +9,7 @@ import AddImgScreen from "../screens/SubirImagenScreen";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import PerfilScreen from "../screens/PerfilScreen";
+import SubirImagenScreen from "../screens/SubirImagenScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -63,8 +64,8 @@ const BottomTabNavigator = () => {
             />
 
             <Tab.Screen
-                name="Add"
-                component={withThemeContainer(AddImgScreen)}
+                name="SubirImagen"
+                component={withThemeContainer(SubirImagenScreen)}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return <Ionicons

@@ -19,6 +19,10 @@ const strings = {
     credencialesIncorrectas: 'Credenciales incorrectas',
     errorDeConexion: 'Error de conexión',
     errorDesconocido: 'Error desconocido',
+    estudios: "Mis Estudios:",
+    sinEstudios: "Todavía no tienes imágenes de tus estudios",
+    seleccionarImagen: "Seleccionar imagen",
+    bienvenido: "¡Bienvenido a BRISA",
 
 
     /*ABOUT US*/

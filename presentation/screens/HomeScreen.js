@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { useTheme } from '../../utils/theme';
 import { useAuth } from '../../data/AuthContext';
+import { useUser } from '../../data/UserContext';
 import InfoCard from "../components/InfoCard"; // Importamos el nuevo componente
 import Btn from "../components/Btn";
 import { useNavigation } from '@react-navigation/native';
@@ -9,14 +10,15 @@ import strings from '../../utils/strings/strings';
 
 const HomeScreen = () => {
     const theme = useTheme();
-    const { logout, user, deleteAccount } = useAuth(); //me agarro los datos del user
+    const { logout, user } = useAuth(); //me agarro los datos del user
+    const { deleteAccount } = useUser();
     const navigation = useNavigation();
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
 
             <Text style={[styles.title, { color: theme.primary }]}>
-            ¡Bienvenido a BRISA{user ? `, ${user.username}` : '!'}!
+            {strings.bienvenido}{user ? `, ${user.username}` : '!'}!
             </Text>
             <Text style={[styles.subtitle, { color: theme.inverseBackground }]}>
                 {strings.subtitle}

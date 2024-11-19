@@ -6,6 +6,7 @@ import { ThemeProvider } from './data/ThemeContext'
 import BottomTabNavigator from "./presentation/components/BottomBar"
 import { withThemeContainer } from "./presentation/hooks/HookContainer";
 import { AuthProvider } from "./data/AuthContext";
+import { UserProvider } from "./data/UserContext";
 
 import React from 'react';
 import ProfileScreen from "./presentation/screens/ProfileScreen";
@@ -19,6 +20,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+      <UserProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={withThemeContainer(LoginScreen)} />
@@ -33,6 +35,7 @@ export default function App() {
           <Stack.Screen name="SubirImagen" component={withThemeContainer(SubirImagenScreen)} />
         </Stack.Navigator>
       </NavigationContainer>
+      </UserProvider>
       </AuthProvider>
     </ThemeProvider>
   );
