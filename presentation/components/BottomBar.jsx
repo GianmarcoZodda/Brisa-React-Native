@@ -8,6 +8,7 @@ import { withThemeContainer } from "../hooks/HookContainer"
 import AddImgScreen from "../screens/SubirImagenScreen";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import PerfilScreen from "../screens/PerfilScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -49,7 +50,7 @@ const BottomTabNavigator = () => {
 
             <Tab.Screen
                 name="Profile"
-                component={withThemeContainer(ProfileScreen)}
+                component={withThemeContainer(PerfilScreen)}
                 options={{
                     tabBarIcon: ({ focused }) => {
                         return <Ionicons

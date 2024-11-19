@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import { useTheme } from '../../utils/theme';
 import { useAuth } from '../../data/AuthContext';
 import InfoCard from "../components/InfoCard"; // Importamos el nuevo componente

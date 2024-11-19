@@ -57,7 +57,7 @@ const SubirImagenScreen = () => {
       if (result.result) {
         Alert.alert("Éxito", "La imagen es una retina.");
         // Aquí puedes proceder con el análisis adicional o la lógica adicional
-        navigation.navigate("Profile", { imagen, fecha, horario });
+        navigation.navigate("Perfil", { imagen, fecha, horario });
       } else {
         Alert.alert("No es una retina", "La imagen seleccionada no es una retina.");
       }
