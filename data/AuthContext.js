@@ -12,49 +12,53 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null)
 
-  //esto se usa para saber si el user esta autenticado o no
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const storedToken = await AsyncStorage.getItem('authToken');
-        const storedUser = JSON.parse(await AsyncStorage.getItem('user'));
-        console.log("Token cargado desde AsyncStorage:", storedToken)
-        console.log("User cargado desde AsyncStorage:", storedUser)
-        if (storedToken && storedUser) {
-          setToken(storedToken);
-          setUser(storedUser);
-          setIsAuthenticated(true);
-          setError(null);
-           // agarro el user y el token
-        }
-      } catch (err) {
-        console.error("Error cargando la data:", err);
+
+  //para saber si esta autenticado o no. tambien lo expórto para poder actalualizar los datos del user en cualquier screen
+  const loadUserData = async () => {
+    try {
+      const storedToken = await AsyncStorage.getItem('authToken');
+      const storedUser = JSON.parse(await AsyncStorage.getItem('user'));
+      console.log("Token cargado desde AsyncStorage:", storedToken);
+      console.log("User cargado desde AsyncStorage:", storedUser);
+
+      if (storedToken && storedUser) {
+        setToken(storedToken);
+        setUser(storedUser);
+        setIsAuthenticated(true);
+        setError(null);
       }
-    };
-    loadData();
+    } catch (err) {
+      console.error("Error cargando la data:", err);
+    }
+  };
+
+  useEffect(() => {
+    loadUserData();  
   }, []);
 
 
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     setError(null); //pongo el error en nulo para sacar el anterior, sui es q habia
    
     try {
-      const [authToken, userData] = await loginService(username, password);   
+      const [authToken, userData] = await loginService(email, password);   
       console.log("llame al servicio")
 
       if (authToken && userData) {
       console.log("authtoken: "+authToken)
       console.log("user: "+userData)
+      console.log("---------")
 
       setToken(authToken);
-      setUser(userData);
+      setUser(JSON.stringify(userData));
       setIsAuthenticated(true);
 
       await AsyncStorage.setItem('authToken', authToken);
+      console.log('user', JSON.stringify(userData))
       await AsyncStorage.setItem('user', JSON.stringify(userData));
 
       console.log("entre en el try del context. Token: "+authToken)
-      console.log("entre en el try del context. user: "+userData)
+      console.log("entre en el try del context. user: "+JSON.stringify(userData))
       }
     
     } catch (err) {

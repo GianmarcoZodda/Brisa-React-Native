@@ -8,7 +8,6 @@ import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
 import Btn from "../components/Btn";
 import { useAuth } from '../../data/AuthContext';
-import axios from 'axios';
 
 const SubirImagenScreen = () => {
   const theme = useTheme();
@@ -31,7 +30,6 @@ const SubirImagenScreen = () => {
     }
   };
 
-
   // Función para verificar si la imagen es una retina
   const verificarRetina = async (imageUri) => {
     const formData = new FormData();
@@ -41,27 +39,30 @@ const SubirImagenScreen = () => {
       name: 'imagen.jpg',  // Nombre del archivo
     });
 
-console.log("verificar retina: ",verificarRetina)
-
-
     try {
-      const responseVerificar = await axios.post(`${API_URL_BACKEND}isRetina`, formData, {
+      const response = await fetch(`${API_URL_BACKEND}isRetina`, {
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
+        body: formData,
       });
 
-
-        // Verifica el resultado y retorna un valor booleano
-        return responseVerificar.data.result; // Suponemos que `result` es true o false
-      } catch (error) {
-        console.error('Error al verificar la imagen:', error);
-        Alert.alert('Error', 'Hubo un error al verificar la imagen.');
-        return false; // Si ocurre un error, retornamos false
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    };
 
+      const responseVerificar = await response.json();
+
+      // Verifica el resultado y retorna un valor booleano
+      return responseVerificar.result; // Suponemos que `result` es true o false
+    } catch (error) {
+      console.error('Error al verificar la imagen:', error);
+      Alert.alert('Error', 'Hubo un error al verificar la imagen.');
+      return false; // Si ocurre un error, retornamos false
+    }
+  };
 
   const subirImagen = async () => {
     if (!imagen) {
@@ -69,21 +70,21 @@ console.log("verificar retina: ",verificarRetina)
       return;
     }
 
-     // Verificar si la imagen es una retina antes de subirla
-     const esRetina = await verificarRetina(imagen);
-     if (!esRetina) {
-       Alert.alert(
-         'Error',
-         'La imagen no es retina. Por favor, selecciona una imagen válida.',
-         [
-           {
-             text: 'OK',
-             onPress: () => navigation.navigate('Home') 
-           }
-         ]
-       );
-       return; // Si no es una retina, no proceder con la subida
-     }
+    // Verificar si la imagen es una retina antes de subirla
+    const esRetina = await verificarRetina(imagen);
+    if (!esRetina) {
+      Alert.alert(
+        'Error',
+        'La imagen no es retina. Por favor, selecciona una imagen válida.',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate('Home') 
+          }
+        ]
+      );
+      return; // Si no es una retina, no proceder con la subida
+    }
 
     const formData = new FormData();
     formData.append('file', {
@@ -93,31 +94,31 @@ console.log("verificar retina: ",verificarRetina)
     });
 
     try {
-      const response = await axios.post(`${API_URL_BACKEND}subirImagen`, formData, {
+      const response = await fetch(`${API_URL_BACKEND}subirImagen`, {
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data', // Necesario para subir imágenes
         },
+        body: formData,
       });
 
-      if (response.status === 200) {
-        Alert.alert('Éxito', 'Imagen subida correctamente');
-        navigation.goBack();  // Regresar a la pantalla anterior después de la carga exitosa
-      } else {
-        Alert.alert('Error', response.data.message || 'Hubo un error al subir la imagen');
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message || 'Hubo un error al subir la imagen');
       }
+
+      Alert.alert('Éxito', 'Imagen subida correctamente');
+      navigation.goBack();  // Regresar a la pantalla anterior después de la carga exitosa
     } catch (error) {
       console.error('Error al subir la imagen:', error);
-      Alert.alert('Error', 'Hubo un error al subir la imagen');
+      Alert.alert('Error', error.message || 'Hubo un error al subir la imagen');
     } 
   };
-
-
 
   return (
     <View style={styles.container}>
       <EyeIcon />
-
 
       <TouchableOpacity style={[styles.imagePlaceholder, {borderColor: theme.primary}]} onPress={elegirImagen}>
         {imagen ? (

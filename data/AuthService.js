@@ -10,14 +10,16 @@ export const login = async (email, password) => {
   try {
       console.log("entro al try del servicio");
       const response = await axios.post(`${API_URL_BACKEND}login`, { email, password });
-      console.log("response: ", response);
       console.log("user: ", response.data.user)
       if (response.data && response.data.token && response.data.user) {
+
           const token = response.data.token;
-          console.log("token: ", token);
+
           const user = response.data.user;
-          console.log("user: ", user);
-          console.log("respuesta: ", [token, user])
+
+          tokeuser = [token, user]
+          console.log("response token: ", tokeuser[0])
+          console.log("response user:",tokeuser[1])
           return [token, user];
       } else {
           console.log(credencialesIncorrectas);
