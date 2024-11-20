@@ -2,6 +2,7 @@ import strings from '../../utils/strings/strings';
 import React from 'react';
 import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
 import { useAppTheme } from '../../data/ThemeContext';
+import API_URL_BACKEND from '../../data/api/apiUrl';
 
 const UserImages = ({ images }) => {
   const theme = useAppTheme();
@@ -21,11 +22,14 @@ const UserImages = ({ images }) => {
       <FlatList
         data={images}
         renderItem={({ item }) => {
+          console.log("item: ", item)
+          console.log("---------")
+          console.log("item path: ", item.path)
           const correctedPath = item.path.replace(/\\/g, '/'); // Asegúrate de usar barras inclinadas
           return (
             <View style={styles.imageCard}>
               <Image
-                source={{ uri: `${API_URL_BACKEND}${correctedPath}` }} // Ajusta la URL base si es necesario
+                source={{ uri: `${API_URL_BACKEND}${correctedPath}` }} 
                 style={styles.image}
               />
               <Text style={[styles.imageText, { color: theme.inverseBackground }]}>

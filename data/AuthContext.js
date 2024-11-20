@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       console.log("---------")
 
       setToken(authToken);
-      setUser(JSON.stringify(userData));
+      setUser(userData);
       setIsAuthenticated(true);
 
       await AsyncStorage.setItem('authToken', authToken);
@@ -91,6 +91,7 @@ export const AuthProvider = ({ children }) => {
   }
   
   const logout = async (navigation) => {
+    navigation.navigate("Login")
     setToken(null);
     setUser(null);
     setIsAuthenticated(false);
@@ -99,7 +100,6 @@ export const AuthProvider = ({ children }) => {
       await AsyncStorage.removeItem('authToken');
       await AsyncStorage.removeItem('user');
       console.log("Token y User eliminado de AsyncStorage");
-      navigation.navigate("Login")
     } catch (err) {
       console.error("Error al eliminar el token y el user:", err);
     }

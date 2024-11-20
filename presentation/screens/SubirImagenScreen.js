@@ -79,11 +79,11 @@ const SubirImagenScreen = () => {
         [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('Main') 
+            onPress: () => navigation.navigate('Perfil') 
           }
         ]
       );
-      return; // Si no es una retina, no proceder con la subida
+      return; 
     }
 
     const formData = new FormData();

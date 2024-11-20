@@ -46,7 +46,7 @@ const BottomTabNavigator = () => {
                     }
                 }}
             />
-
+            
             <Tab.Screen
                 name="Perfil"
                 component={withThemeContainer(PerfilScreen)}

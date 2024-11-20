@@ -30,7 +30,7 @@ const HomeScreen = () => {
                 title={strings.infoCard1} 
                 body={`Nombre: ${user.username}\nCorreo: ${user.email}`}
                 navigation={navigation} 
-                targetScreen="Profile" 
+                targetScreen="Perfil" 
                 />
             )}
 

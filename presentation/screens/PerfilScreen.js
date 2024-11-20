@@ -5,7 +5,7 @@ import { useTheme } from '../../utils/theme';
 import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
 import axios from 'axios';
-import UserImages from '../components/UserImages'; // Importamos el componente
+import UserImages from '../components/UserImages'; 
 import API_URL_BACKEND from '../../data/api/apiUrl.js';
 
 const PerfilScreen = () => {
@@ -31,8 +31,17 @@ const PerfilScreen = () => {
     };
 
     fetchUserImages();
-  }, [token]);
+  }, [user.images]);
 
+
+/*
+const imagenes = user.imagenes;
+console.log("user imagenes: ",imagenes)
+*/
+
+
+
+  console.log("user del return: ", user)
   return (
     <View style={styles.container}>
       <EyeIcon />
@@ -49,10 +58,11 @@ const PerfilScreen = () => {
         {strings.estudios}
       </Text>
 
-      <UserImages images={images} /> {/* Pasamos las imágenes al componente UserImages */}
+      <UserImages images={images} /> 
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
