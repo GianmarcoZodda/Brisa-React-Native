@@ -79,7 +79,7 @@ const SubirImagenScreen = () => {
         [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('Home') 
+            onPress: () => navigation.navigate('Main') 
           }
         ]
       );

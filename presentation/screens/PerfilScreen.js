@@ -1,18 +1,36 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { useAuth } from '../../data/AuthContext'; 
-import UserImages from '../components/UserImages'; 
 import { useTheme } from '../../utils/theme'; 
 import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
-
+import axios from 'axios';
+import API_URL_BACKEND from "../../data/api/apiUrl"; 
 
 const PerfilScreen = () => {
-  const { user } = useAuth(); //tambien me agarro el loaddata, para hacer el usefect que me actualiza el usuario (el usefect)
+  const { user, token } = useAuth(); 
   const theme = useTheme();
-  const images = user.imagenes || []; 
-  console.log("imagenes: ",images)
+  const [images, setImages] = useState([]);
 
+  useEffect(() => {
+    const fetchUserImages = async () => {
+      try {
+        const response = await axios.get(`${API_URL_BACKEND}imagenes`, {
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            'Cache-Control': 'no-cache'
+          }
+        });
+
+        console.log('Imágenes recibidas:', response.data.images);
+        setImages(response.data.images);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    };
+
+    fetchUserImages();
+  }, [token]);
 
   return (
     <View style={styles.container}>
@@ -30,13 +48,23 @@ const PerfilScreen = () => {
         {strings.estudios}
       </Text>
 
-      {/* Componente UserImages que maneja la visualización de las imágenes */}
-      <UserImages images={images} />
+      <FlatList
+        data={images}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => {
+          const correctedPath = item.path.replace(/\\/g, '/');
+          console.log('Renderizando imagen:', `${API_URL_BACKEND}${correctedPath}`);
+          return (
+            <Image source={{ uri: `${API_URL_BACKEND}${correctedPath}` }} style={styles.image} />
+          );
+        }}
+        ListEmptyComponent={<Text style={[styles.noImagesText, { color: theme.inverseBackground }]}>{strings.noImages}</Text>}
+        contentContainerStyle={styles.retinaListContent}
+        style={styles.retinaList}
+      />
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -70,6 +98,12 @@ const styles = StyleSheet.create({
   retinaListContent: {
     paddingBottom: 20,
   },
+  image: {
+    width: 200,
+    height: 200,
+    marginVertical: 10,
+    resizeMode: 'contain',
+  }
 });
 
 export default PerfilScreen;
