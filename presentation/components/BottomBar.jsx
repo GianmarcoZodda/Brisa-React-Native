@@ -3,9 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppTheme } from '../../data/ThemeContext'
 import HomeScreen from "../screens/HomeScreen";
-import ProfileScreen from "../screens/ProfileScreen";
 import { withThemeContainer } from "../hooks/HookContainer"
-import AddImgScreen from "../screens/SubirImagenScreen";
 import AboutUsScreen from "../screens/AboutUsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import PerfilScreen from "../screens/PerfilScreen";
@@ -50,7 +48,7 @@ const BottomTabNavigator = () => {
             />
 
             <Tab.Screen
-                name="Profile"
+                name="Perfil"
                 component={withThemeContainer(PerfilScreen)}
                 options={{
                     tabBarIcon: ({ focused }) => {

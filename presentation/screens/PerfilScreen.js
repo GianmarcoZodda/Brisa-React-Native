@@ -5,8 +5,8 @@ import { useTheme } from '../../utils/theme';
 import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
 import axios from 'axios';
-import API_URL_BACKEND from "../../data/api/apiUrl"; 
 import UserImages from '../components/UserImages'; // Importamos el componente
+import API_URL_BACKEND from '../../data/api/apiUrl.js';
 
 const PerfilScreen = () => {
   const { user, token } = useAuth(); 

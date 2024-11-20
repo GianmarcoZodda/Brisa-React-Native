@@ -9,7 +9,6 @@ import { AuthProvider } from "./data/AuthContext";
 import { UserProvider } from "./data/UserContext";
 
 import React from 'react';
-import ProfileScreen from "./presentation/screens/ProfileScreen";
 import PerfilScreen from "./presentation/screens/PerfilScreen"
 import SubirImagenScreen from "./presentation/screens/SubirImagenScreen";
 
@@ -31,7 +30,6 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="Perfil" component={withThemeContainer(PerfilScreen)} />
-          <Stack.Screen name="Profile" component={withThemeContainer(ProfileScreen)} />
           <Stack.Screen name="SubirImagen" component={withThemeContainer(SubirImagenScreen)} />
         </Stack.Navigator>
       </NavigationContainer>

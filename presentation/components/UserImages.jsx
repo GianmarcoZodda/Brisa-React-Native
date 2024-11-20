@@ -25,7 +25,7 @@ const UserImages = ({ images }) => {
           return (
             <View style={styles.imageCard}>
               <Image
-                source={{ uri: `http://192.168.100.201:3000/${correctedPath}` }} // Ajusta la URL base si es necesario
+                source={{ uri: `${API_URL_BACKEND}${correctedPath}` }} // Ajusta la URL base si es necesario
                 style={styles.image}
               />
               <Text style={[styles.imageText, { color: theme.inverseBackground }]}>
