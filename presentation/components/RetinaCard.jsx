@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { useAppTheme } from '../../data/ThemeContext'
 
-const RetinaCard = ({ miniatura, fecha, horario }) => {
+const RetinaCard = ({ fecha, horario }) => {
+    const theme = useAppTheme();
     return (
         <View style={styles.cardContainer}>
-            <Image source={miniatura} style={styles.imagen} resizeMode="contain" />
             <View>
-                <Text style={styles.texto}>Fecha: {fecha}</Text>
-                <Text style={styles.texto}>Hora: {horario}</Text>
+                <Text style={[styles.texto, {color: theme.inverseBackground}]}>Fecha: {fecha}</Text>
+                <Text style={[styles.texto, {color: theme.inverseBackground}]}>Hora: {horario}</Text>
             </View>
         </View>
     );
@@ -21,14 +22,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
     },
-    imagen: {
-        width: 70,
-        height: 70,
-        borderRadius: 100,
-        marginRight: 120,
-    },
     texto: {
-        color: '#ddd',
         fontSize: 16,
     },
 });

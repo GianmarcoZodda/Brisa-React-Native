@@ -6,56 +6,58 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import API_URL_BACKEND from '../../data/api/apiUrl'; 
 import { useAuth } from '../../data/AuthContext'; 
 import RetinaCard from '../components/RetinaCard'; 
 import { useTheme } from '../../utils/theme'; 
 import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
+import API_URL_BACKEND from '../../data/api/apiUrl';
+import axios from 'axios';
 
 const PerfilScreen = () => {
-  const { user, token } = useAuth(); 
+  const { user, token } = useAuth();  // Obtener el token de autenticación
   const [miniCards, setMiniCards] = useState([]);
   const theme = useTheme();
 
-  const obtenerImagenes = async () => {
-    try {
-      const response = await fetch(`${API_URL_BACKEND}imagenes`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`, 
-          'Content-Type': 'application/json',
-        },
-      });
 
-      if (!response.ok) {
-        throw new Error('Error al obtener las imágenes');
+  useEffect(() => {
+    const fetchUserImages = async () => {
+      try {
+        const response = await axios.get(`${API_URL_BACKEND}imagenes`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+
+        const contentType = response.headers['content-type'];
+        if (contentType && contentType.includes('application/json')) {
+          if (response.status === 200) {
+            /*
+            console.log("response: ", response)
+            console.log("-------------------")
+            console.log("response data: ", response.data)
+            console.log("-------------------")
+            console.log("response images: ", response.data.images)
+            */
+            setMiniCards(response.data.images || []);
+          } else {
+            Alert.alert('Error', response.data.message || 'Hubo un error al obtener las imágenes.');
+          }
+        } else {
+          const text = response.data; // Captura la respuesta como texto si no es JSON
+          console.error("La respuesta no es JSON:", text);
+          Alert.alert('Error', 'La respuesta del servidor no es válida.');
+        }
+      } catch (error) {
+        console.error('Error al obtener imágenes del usuario:', error);
+        Alert.alert('Error', 'Hubo un error al obtener las imágenes.');
       }
+    };
 
-      const data = await response.json();
-      if (data && data.images) {
-        const images = data.images.map((image, index) => ({
-          id: index.toString(),
-          miniatura: { uri: image.url },
-          fecha: image.fecha,
-          horario: image.horario,
-        }));
-        setMiniCards(images);
-      }
-    } catch (error) {
-      Alert.alert('Error', 'No se pudieron cargar las imágenes');
-      console.error(error);
-    }
-  };
+    fetchUserImages();
+  }, []);
 
-  // Verifica si 'user' está presente antes de intentar renderizar la información
-  if (!user) {
-    return (
-      <View style={styles.container}>
-        <Text>Cargando...</Text> {/* O redirigir a una pantalla de carga */}
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -81,12 +83,11 @@ const PerfilScreen = () => {
           data={miniCards}
           renderItem={({ item }) => (
             <RetinaCard
-              miniatura={item.miniatura}
               fecha={item.fecha}
               horario={item.horario}
             />
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item}
           style={styles.retinaList}
           contentContainerStyle={styles.retinaListContent}
         />

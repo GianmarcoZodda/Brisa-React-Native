@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 import { useTheme } from '../../utils/theme';
 import { useAuth } from '../../data/AuthContext';
 import { useUser } from '../../data/UserContext';
-import InfoCard from "../components/InfoCard"; // Importamos el nuevo componente
+import InfoCard from "../components/InfoCard"; 
 import Btn from "../components/Btn";
 import { useNavigation } from '@react-navigation/native';
 import strings from '../../utils/strings/strings';

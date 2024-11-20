@@ -7,17 +7,18 @@ import { useTheme } from '../../utils/theme';
 import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
 import Btn from "../components/Btn";
-
+import { useAuth } from '../../data/AuthContext';
+import axios from 'axios';
 
 const SubirImagenScreen = () => {
   const theme = useTheme();
   const navigation = useNavigation();
+  const { token } = useAuth(); 
   const [imagen, setImagen] = useState(null);
-  const [fechaSubida, setFechaSubida] = useState(null);
 
   const elegirImagen = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Image,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
@@ -30,45 +31,88 @@ const SubirImagenScreen = () => {
     }
   };
 
+
+  // Función para verificar si la imagen es una retina
+  const verificarRetina = async (imageUri) => {
+    const formData = new FormData();
+    formData.append('file', {
+      uri: imageUri,
+      type: 'image/jpeg',  // Asegúrate de que el tipo de archivo sea correcto
+      name: 'imagen.jpg',  // Nombre del archivo
+    });
+
+console.log("verificar retina: ",verificarRetina)
+
+
+    try {
+      const responseVerificar = await axios.post(`${API_URL_BACKEND}isRetina`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+
+        // Verifica el resultado y retorna un valor booleano
+        return responseVerificar.data.result; // Suponemos que `result` es true o false
+      } catch (error) {
+        console.error('Error al verificar la imagen:', error);
+        Alert.alert('Error', 'Hubo un error al verificar la imagen.');
+        return false; // Si ocurre un error, retornamos false
+      }
+    };
+
+
   const subirImagen = async () => {
     if (!imagen) {
-      Alert.alert("Error", "Primero selecciona una imagen.");
+      Alert.alert('Error', 'Por favor selecciona una imagen.');
       return;
     }
 
-    const fechaActual = new Date();
-    const fecha = fechaActual.toLocaleDateString();
-    const horario = fechaActual.toLocaleTimeString();
-    setFechaSubida({ fecha, horario });
+     // Verificar si la imagen es una retina antes de subirla
+     const esRetina = await verificarRetina(imagen);
+     if (!esRetina) {
+       Alert.alert(
+         'Error',
+         'La imagen no es retina. Por favor, selecciona una imagen válida.',
+         [
+           {
+             text: 'OK',
+             onPress: () => navigation.navigate('Home') 
+           }
+         ]
+       );
+       return; // Si no es una retina, no proceder con la subida
+     }
+
+    const formData = new FormData();
+    formData.append('file', {
+      uri: imagen,
+      type: 'image/jpeg',  // Asegúrate de que el tipo de archivo sea correcto
+      name: 'imagen.jpg',  // Nombre del archivo
+    });
 
     try {
-      const formData = new FormData();
-      formData.append('file', {
-        uri: imagen,
-        type: 'image/jpeg',
-        name: 'imagen.jpg',
+      const response = await axios.post(`${API_URL_BACKEND}subirImagen`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data', // Necesario para subir imágenes
+        },
       });
 
-      // Verificar si la imagen es una retina
-      const response = await fetch(`${API_URL_BACKEND}isRetina`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (result.result) {
-        Alert.alert("Éxito", "La imagen es una retina.");
-        // Aquí puedes proceder con el análisis adicional o la lógica adicional
-        navigation.navigate("Perfil", { imagen, fecha, horario });
+      if (response.status === 200) {
+        Alert.alert('Éxito', 'Imagen subida correctamente');
+        navigation.goBack();  // Regresar a la pantalla anterior después de la carga exitosa
       } else {
-        Alert.alert("No es una retina", "La imagen seleccionada no es una retina.");
+        Alert.alert('Error', response.data.message || 'Hubo un error al subir la imagen');
       }
     } catch (error) {
-      console.error("Error al verificar si es retina:", error);
-      Alert.alert("Error", "Hubo un problema al verificar si la imagen es una retina.");
-    }
+      console.error('Error al subir la imagen:', error);
+      Alert.alert('Error', 'Hubo un error al subir la imagen');
+    } 
   };
+
+
 
   return (
     <View style={styles.container}>
