@@ -1,7 +1,7 @@
 import strings from '../../utils/strings/strings';
 import React from 'react';
 import { View, FlatList, Text, Image, StyleSheet } from 'react-native';
-import { useAppTheme } from '../../data/ThemeContext'
+import { useAppTheme } from '../../data/ThemeContext';
 
 const UserImages = ({ images }) => {
   const theme = useAppTheme();
@@ -9,7 +9,7 @@ const UserImages = ({ images }) => {
   if (!images || images.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={[styles.noImagesText, {color: theme.inverseBackground}]}>
+        <Text style={[styles.noImagesText, { color: theme.inverseBackground }]}>
           {strings.sinEstudios}
         </Text>
       </View>
@@ -19,19 +19,22 @@ const UserImages = ({ images }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={images} // Recibimos las imágenes como props
-        renderItem={({ item }) => (
-          <View style={styles.imageCard}>
-            <Image
-              source={{ uri: item.path }} // Mostramos la imagen
-              style={styles.image}
-            />
-            <Text style={[styles.imageText, {color: theme.inverseBackground}]}>
-              Fecha: {item.fecha} - Hora: {item.horario}
-            </Text>
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()} // Usamos el índice como clave única
+        data={images}
+        renderItem={({ item }) => {
+          const correctedPath = item.path.replace(/\\/g, '/'); // Asegúrate de usar barras inclinadas
+          return (
+            <View style={styles.imageCard}>
+              <Image
+                source={{ uri: `http://192.168.100.201:3000/${correctedPath}` }} // Ajusta la URL base si es necesario
+                style={styles.image}
+              />
+              <Text style={[styles.imageText, { color: theme.inverseBackground }]}>
+                Fecha: {item.fecha} - Hora: {item.horario}
+              </Text>
+            </View>
+          );
+        }}
+        keyExtractor={(item, index) => index.toString()}
       />
     </View>
   );

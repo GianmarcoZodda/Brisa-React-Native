@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../../data/AuthContext'; 
 import { useTheme } from '../../utils/theme'; 
 import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
 import axios from 'axios';
 import API_URL_BACKEND from "../../data/api/apiUrl"; 
+import UserImages from '../components/UserImages'; // Importamos el componente
 
 const PerfilScreen = () => {
   const { user, token } = useAuth(); 
@@ -48,20 +49,7 @@ const PerfilScreen = () => {
         {strings.estudios}
       </Text>
 
-      <FlatList
-        data={images}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => {
-          const correctedPath = item.path.replace(/\\/g, '/');
-          console.log('Renderizando imagen:', `${API_URL_BACKEND}${correctedPath}`);
-          return (
-            <Image source={{ uri: `${API_URL_BACKEND}${correctedPath}` }} style={styles.image} />
-          );
-        }}
-        ListEmptyComponent={<Text style={[styles.noImagesText, { color: theme.inverseBackground }]}>{strings.noImages}</Text>}
-        contentContainerStyle={styles.retinaListContent}
-        style={styles.retinaList}
-      />
+      <UserImages images={images} /> {/* Pasamos las imágenes al componente UserImages */}
     </View>
   );
 };
@@ -87,23 +75,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
-  noImagesText: {
-    fontSize: 16,
-    marginVertical: 20,
-  },
-  retinaList: {
-    flex: 1,
-    width: '100%',
-  },
-  retinaListContent: {
-    paddingBottom: 20,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    marginVertical: 10,
-    resizeMode: 'contain',
-  }
 });
 
 export default PerfilScreen;
