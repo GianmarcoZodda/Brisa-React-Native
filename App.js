@@ -7,10 +7,7 @@ import BottomTabNavigator from "./presentation/components/BottomBar"
 import { withThemeContainer } from "./presentation/hooks/HookContainer";
 import { AuthProvider } from "./data/AuthContext";
 import { UserProvider } from "./data/UserContext";
-
 import React from 'react';
-import PerfilScreen from "./presentation/screens/PerfilScreen"
-import SubirImagenScreen from "./presentation/screens/SubirImagenScreen";
 
 const Stack = createNativeStackNavigator()
 
@@ -29,8 +26,6 @@ export default function App() {
             component={BottomTabNavigator}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Perfil" component={withThemeContainer(PerfilScreen)} />
-          <Stack.Screen name="SubirImagen" component={withThemeContainer(SubirImagenScreen)} />
         </Stack.Navigator>
       </NavigationContainer>
       </UserProvider>
