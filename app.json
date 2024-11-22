@@ -4,10 +4,10 @@
     "slug": "Brisa-React-Native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/white_eye_brisa.jpg",
     "userInterfaceStyle": "automatic", 
     "splash": {
-      "image": "./assets/white_brisa.jpg",
+      "image": "./assets/white_eye_brisa.jpg",
       "resizeMode": "contain"
     },
     "ios": {
@@ -15,12 +15,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/white_eye_brisa.jpg",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/white_eye_brisa.jpg"
     }
   }
 }
