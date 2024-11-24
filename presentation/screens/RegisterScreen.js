@@ -78,13 +78,13 @@ return(
 <View style={styles.container}>
     <EyeIcon></EyeIcon>
 
-    <InputField value={username} onValueChange={setUsername} label="username" error={usernameError}></InputField>
+    <InputField value={username} onValueChange={setUsername} label="Username" error={usernameError}></InputField>
 
-    <InputField value={email} onValueChange={setEmail} label="email" error={emailError}></InputField>
+    <InputField value={email} onValueChange={setEmail} label="Email" error={emailError}></InputField>
 
-    <InputField value={password} onValueChange={setPassword} label="password" isPassword={true} error={passwordError}></InputField>
+    <InputField value={password} onValueChange={setPassword} label="Password" isPassword={true} error={passwordError}></InputField>
 
-    <InputField value={secondPassword} onValueChange={setSecondPassword} label="confirm password" isPassword={true} error={secondPasswordError}></InputField>
+    <InputField value={secondPassword} onValueChange={setSecondPassword} label="Confirm Password" isPassword={true} error={secondPasswordError}></InputField>
 
     <Btn  onPress={handleRegister}
         text={strings.registrarme}></Btn>
@@ -97,8 +97,8 @@ return(
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center', // Centra verticalmente
-      alignItems: 'center', // Centra horizontalmente
+      justifyContent: 'center', 
+      alignItems: 'center', 
       padding: 16,
     },
     text:{

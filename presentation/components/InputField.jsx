@@ -4,7 +4,7 @@ import { useAppTheme } from '../../data/ThemeContext';
 
 const InputField = ({ value, onValueChange, label, isPassword = false , error}) => {
   const theme = useAppTheme();
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+  const [showPassword, setShowPassword] = useState(false); 
 
   return (
     <View style={styles.container}>
@@ -14,14 +14,13 @@ const InputField = ({ value, onValueChange, label, isPassword = false , error}) 
           style={[styles.input, { color: theme.primary }]}
           value={value}
           onChangeText={onValueChange}
-          secureTextEntry={isPassword && !showPassword} // Cambia según el estado de showPassword
-          /*placeholderTextColor="#FFFFFF"*/
+          secureTextEntry={isPassword && !showPassword} 
         />
         {isPassword && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeButton}>
             <Image
-              source={require('../../assets/PassIcon.png')} // Usar require para importar la imagen
-              style={[{ width: 24, height: 24 }, {color: theme.inverseBackground}]} // Ajusta el tamaño de la imagen según lo necesites
+              source={require('../../assets/PassIcon.png')} 
+              style={[{ width: 24, height: 24 }, {color: theme.inverseBackground}]} 
             />
           </TouchableOpacity>
         )}
@@ -42,28 +41,27 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   inputContainer: {
-    position: 'relative', // Establece el contenedor como relativo
-    flexDirection: 'row', // Mantiene la flexibilidad en el diseño
+    position: 'relative', 
+    flexDirection: 'row', 
   },
   input: {
-    flex: 1, // Permitir que el TextInput use el espacio disponible
+    flex: 1, 
     height: 40,
     borderColor: '#41C1BA',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    /*backgroundColor: "#B0B0B0",*/
   },
   eyeButton: {
-    position: 'absolute', // Posicionamiento absoluto para colocar el botón dentro del TextInput
-    right: 10, // Espacio desde el borde derecho
-    top: 5, // Ajusta este valor para subir el icono
-    padding: 5, // Espaciado interno del botón
+    position: 'absolute', 
+    right: 10, 
+    top: 5, 
+    padding: 5, 
   },
   errorText: {
     color: '#FF0000',
     fontSize: 12,
-    marginTop: 4,  // Espacio entre el TextInput y el mensaje de error
+    marginTop: 4,  
   },
 });
 
