@@ -89,7 +89,7 @@ const UserImages = ({ images, deleteResult }) => {
       <ModalAnalisis
       isVisible={isModalShowVisible}
       onClose={() => setIsModalShowVisible(false)}
-      resultado={selectedImage}  //este no recibe funcion, porq solo mem mmuestra el resultado del anmalisis
+      resultado={selectedImage  || {}}  //este no recibe funcion, porq solo mem mmuestra el resultado del anmalisis. le agregho el obj vacio porque si no selecciono img me da error
       ></ModalAnalisis>
 
     </View>
