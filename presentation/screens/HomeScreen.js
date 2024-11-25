@@ -4,14 +4,12 @@ import { useTheme } from '../../utils/theme';
 import { useAuth } from '../../data/AuthContext';
 import { useUser } from '../../data/UserContext';
 import InfoCard from "../components/InfoCard"; 
-import Btn from "../components/Btn";
 import { useNavigation } from '@react-navigation/native';
 import strings from '../../utils/strings/strings';
 
 const HomeScreen = () => {
     const theme = useTheme();
-    const { logout, user } = useAuth(); //me agarro los datos del user
-    const { deleteAccount } = useUser();
+    const {user } = useAuth(); //me agarro los datos del user
     const navigation = useNavigation();
 
     return (
@@ -51,19 +49,7 @@ const HomeScreen = () => {
                 body={strings.infoCard4Body}
                 navigation={navigation} 
                 targetScreen="Settings" 
-            />
-
-            <Btn
-                onPress={() => logout(navigation)} 
-                text="Cerrar Sesión"
-                backgroundColor={theme.secondary}
-            />
-
-            <Btn
-                onPress={() => deleteAccount(navigation)} 
-                text="Eliminar Cuenta"
-                backgroundColor={theme.buttonRed}
-            />
+            />          
         </ScrollView>
     );
 };

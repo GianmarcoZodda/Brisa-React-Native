@@ -1,10 +1,20 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, View} from 'react-native';
+import { useTheme } from '../../utils/theme';
+import { useAuth } from '../../data/AuthContext';
+import { useUser } from '../../data/UserContext';
+import Btn from "../components/Btn";
 import Desplegable from '../components/Desplegable';
 import LogoImg from '../components/LogoImg';
+import { useNavigation } from '@react-navigation/native';
 import strings from '../../utils/strings/strings';
 
 const SettingsScreen = () => {
+  const theme = useTheme();
+  const { logout, user } = useAuth(); //me agarro los datos del user
+  const { deleteAccount } = useUser();
+  const navigation = useNavigation();
+
   return (
     <ScrollView style={styles.container}>
 
@@ -48,6 +58,26 @@ const SettingsScreen = () => {
         strings.preg3titulo, '\n\n', strings.preg3body, '\n\n\n',
         strings.preg4titulo, '\n\n', strings.preg4body, '\n\n\n',]}
       />
+      <View style={styles.analysisContainer}>
+
+      <Btn
+         onPress={() => logout(navigation)} 
+         text="Cerrar Sesión"
+         backgroundColor={theme.secondary}
+         />
+
+       <Btn
+         onPress={() => deleteAccount(navigation)} 
+         text="Eliminar Cuenta"
+         backgroundColor={theme.buttonRed}
+         />
+
+
+      </View>
+
+     
+
+      
       
     </ScrollView>
   );
@@ -58,7 +88,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     marginBottom: 80
+    
   },
+  analysisContainer: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
+
 });
 
 export default SettingsScreen;
