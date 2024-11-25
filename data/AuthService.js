@@ -3,7 +3,7 @@ import API_URL_BACKEND from "./api/apiUrl"
 import {credencialesIncorrectas, errorDeConexion, errorDesconocido, errorServidor} from '../utils/strings/strings';
 
 export const login = async (email, password) => {
-
+    console.log("entro al service")
   try {
       const response = await axios.post(`${API_URL_BACKEND}login`, { email, password });
 
@@ -12,7 +12,7 @@ export const login = async (email, password) => {
           const token = response.data.token;
 
           const user = response.data.user;
-
+console.log("token: ", token)
           return [token, user];
       } else {
           console.log(credencialesIncorrectas);

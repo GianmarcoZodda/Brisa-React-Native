@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     setError(null); //pongo el error en nulo para sacar el anterior, sui es q habia
-   
+   console.log("entro al login")
     try {
       const [authToken, userData] = await loginService(email, password);   
 
@@ -48,6 +48,8 @@ export const AuthProvider = ({ children }) => {
 
       await AsyncStorage.setItem('authToken', authToken);
       await AsyncStorage.setItem('user', JSON.stringify(userData));
+
+      console.log("me loguie")
       }
     
     } catch (err) {

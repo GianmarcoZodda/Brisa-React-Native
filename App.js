@@ -9,6 +9,7 @@ import { AuthProvider } from "./data/AuthContext";
 import { UserProvider } from "./data/UserContext";
 import React from 'react';
 
+
 const Stack = createNativeStackNavigator()
 
 export default function App() {

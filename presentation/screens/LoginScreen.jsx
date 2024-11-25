@@ -22,7 +22,7 @@ const LoginScreen = () => {
   //cada vez que se autentique el usuario, va al homescreen
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.navigate('Main');
+      navigation.replace('Main');
     }
   }, [isAuthenticated]);
 
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: '#FF0000',
     fontSize: 14,
-    marginTop: 10,  // Espacio entre los elementos y el mensaje de error
+    marginTop: 10,  
   },
 });
 

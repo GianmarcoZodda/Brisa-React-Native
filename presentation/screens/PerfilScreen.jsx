@@ -23,6 +23,17 @@ const handleDeleteResult = async (resultado) => {
     await fetchUserImages(); 
 };
 
+
+if (!user) {
+  return (
+    <View style={styles.container}>
+      <Text style={[styles.username, { color: theme.inverseBackground }]}>
+        Cargando perfil...
+      </Text>
+    </View>
+  );
+}
+
   return (
     <View style={styles.container}>
       <EyeIcon />
