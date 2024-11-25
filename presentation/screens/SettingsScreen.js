@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, ScrollView, View} from 'react-native';
 import { useTheme } from '../../utils/theme';
 import { useAuth } from '../../data/AuthContext';
 import { useUser } from '../../data/UserContext';
 import Btn from "../components/Btn";
+import ModalDelete from "../components/ModalDelete";
 import Desplegable from '../components/Desplegable';
 import LogoImg from '../components/LogoImg';
 import { useNavigation } from '@react-navigation/native';
@@ -11,9 +12,10 @@ import strings from '../../utils/strings/strings';
 
 const SettingsScreen = () => {
   const theme = useTheme();
-  const { logout, user } = useAuth(); //me agarro los datos del user
+  const { logout } = useAuth(); 
   const { deleteAccount } = useUser();
   const navigation = useNavigation();
+  const [isModalVisible, setIsModalVisible] = useState(false); 
 
   return (
     <ScrollView style={styles.container}>
@@ -67,10 +69,19 @@ const SettingsScreen = () => {
          />
 
        <Btn
-         onPress={() => deleteAccount(navigation)} 
+         onPress={() =>  setIsModalVisible(true)} 
          text="Eliminar Cuenta"
          backgroundColor={theme.buttonRed}
          />
+
+        <ModalDelete
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onDelete={() => {
+          deleteAccount(navigation)
+          setIsModalVisible(false); 
+        }}
+      />
 
 
       </View>
