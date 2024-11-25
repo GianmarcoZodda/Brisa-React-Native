@@ -18,8 +18,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const storedToken = await AsyncStorage.getItem('authToken');
       const storedUser = JSON.parse(await AsyncStorage.getItem('user'));
-      console.log("Token cargado desde AsyncStorage:", storedToken);
-      console.log("User cargado desde AsyncStorage:", storedUser);
 
       if (storedToken && storedUser) {
         setToken(storedToken);
@@ -42,23 +40,14 @@ export const AuthProvider = ({ children }) => {
    
     try {
       const [authToken, userData] = await loginService(email, password);   
-      console.log("llame al servicio")
 
       if (authToken && userData) {
-      console.log("authtoken: "+authToken)
-      console.log("user: "+userData)
-      console.log("---------")
-
       setToken(authToken);
       setUser(userData);
       setIsAuthenticated(true);
 
       await AsyncStorage.setItem('authToken', authToken);
-      console.log('user', JSON.stringify(userData))
       await AsyncStorage.setItem('user', JSON.stringify(userData));
-
-      console.log("entre en el try del context. Token: "+authToken)
-      console.log("entre en el try del context. user: "+JSON.stringify(userData))
       }
     
     } catch (err) {
@@ -70,10 +59,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (username, email, password) => {
     setError(null)
     try{
-      console.log("entro al try del authcontext")
       const [registroToken, userData] = await registerService(username, email, password);
-      console.log("token al registrarme: ", registroToken);
-      console.log("user al registrarme: ", userData);
 
       if(registroToken && userData){
         setToken(registroToken);
@@ -99,7 +85,6 @@ export const AuthProvider = ({ children }) => {
     try {
       await AsyncStorage.removeItem('authToken');
       await AsyncStorage.removeItem('user');
-      console.log("Token y User eliminado de AsyncStorage");
     } catch (err) {
       console.error("Error al eliminar el token y el user:", err);
     }

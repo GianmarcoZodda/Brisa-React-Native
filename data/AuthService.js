@@ -3,23 +3,16 @@ import API_URL_BACKEND from "./api/apiUrl"
 import {credencialesIncorrectas, errorDeConexion, errorDesconocido} from '../utils/strings/strings';
 
 export const login = async (email, password) => {
-  console.log(API_URL_BACKEND);
-  console.log(email);
-  console.log(password);
 
   try {
-      console.log("entro al try del servicio");
       const response = await axios.post(`${API_URL_BACKEND}login`, { email, password });
-      console.log("user: ", response.data.user)
+
       if (response.data && response.data.token && response.data.user) {
 
           const token = response.data.token;
 
           const user = response.data.user;
 
-          tokeuser = [token, user]
-          console.log("response token: ", tokeuser[0])
-          console.log("response user:",tokeuser[1])
           return [token, user];
       } else {
           console.log(credencialesIncorrectas);
@@ -43,19 +36,13 @@ export const login = async (email, password) => {
 };
 
 export const register = async (username, email, password) => {
-    console.log("estoy en el servicio");
-    console.log(username);
-    console.log(email);
-    console.log(password);
-
     try{
-        console.log("entro al try del servicio para el registro");
         const response = await axios.post(`${API_URL_BACKEND}register`, { username, email, password });
-        console.log("response: ", response);
+
         const token = response.data.token;
-        console.log("token en response data: ", token);
+   
         const user = response.data.user;
-        console.log("user: ", user)
+
         if(token && user){
             return [token, user];
         }

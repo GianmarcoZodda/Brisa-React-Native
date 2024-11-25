@@ -15,14 +15,22 @@ const strings = {
     emailInvalido: "El email ingresado no es valido",
     contraseñasDistintas: "Las contraseñas deben ser iguales",
     confirmeContraseña: "Por favor, confirme su contraseña",
-    errorInesperado: 'Ocurrió un error inesperado',
     credencialesIncorrectas: 'Credenciales incorrectas',
-    errorDeConexion: 'Error de conexión',
-    errorDesconocido: 'Error desconocido',
     estudios: "Mis Estudios:",
     sinEstudios: "Todavía no tienes imágenes de tus estudios",
     seleccionarImagen: "Seleccionar imagen",
     bienvenido: "¡Bienvenido a BRISA",
+
+    /*ERRORES*/
+    errorInesperado: 'Ocurrió un error inesperado',
+    errorDeConexion: 'Error de conexión',
+    errorDesconocido: 'Error desconocido',
+    errorServidor: "Error en el servidor",
+
+    /*USER SERVICE ERRORS*/
+    sinEliminarResultado: "No se pudo eliminar el resultado", 
+    sinEliminarCuenta: "No se pudo eliminar la cuenta",
+    sinToken: "Token no proporcionado",
 
 
     /*ABOUT US*/

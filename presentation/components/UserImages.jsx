@@ -40,9 +40,7 @@ const UserImages = ({ images, deleteResult }) => {
       <FlatList
         data={images}
         renderItem={({ item }) => {
-          console.log("item: ", item)
-          console.log("---------")
-          console.log("item path: ", item.path)
+
           const correctedPath = item.path.replace(/\\/g, '/'); 
         
           return (

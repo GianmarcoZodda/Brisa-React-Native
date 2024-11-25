@@ -1,47 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../../data/AuthContext'; 
 import { useUser } from '../../data/UserContext'; 
 import { useTheme } from '../../utils/theme'; 
 import strings from '../../utils/strings/strings';
 import EyeIcon from "../components/EyeIcon";
-import axios from 'axios';
 import UserImages from '../components/UserImages'; 
-import API_URL_BACKEND from '../../data/api/apiUrl.js';
 
 const PerfilScreen = () => {
-  const { user, token } = useAuth(); 
-  const { deleteResult } = useUser(); 
+  const { user } = useAuth(); 
+  const { images, deleteResult, fetchUserImages } = useUser(); 
   const theme = useTheme();
-  const [images, setImages] = useState([]);
 
+//este useffect es para traerme las imagenes
+  useEffect(() => {
+    fetchUserImages();
+  }, []);
 
-    const fetchUserImages = async () => {
-      try {
-        const response = await axios.get(`${API_URL_BACKEND}imagenes`, {
-          headers: { 
-            Authorization: `Bearer ${token}`,
-            'Cache-Control': 'no-cache'
-          }
-        });
-
-        console.log('Imágenes recibidas:', response.data.images);
-        setImages(response.data.images);
-      } catch (error) {
-        console.error('Error fetching images:', error);
-      }
-    };
-
-    useEffect(() => {
-      fetchUserImages();
-    }, [])
-
-    //este metodo es para que se vuelva a llamar el fetch, que me trae mis imgs
-    const handleDeleteResult = async (resultado) => {
-      await deleteResult(resultado);
-      fetchUserImages(); 
-  };
-
+  //este es para borrar las imagenes y traerme las imagenes nuevamente (el array actualizado)
+const handleDeleteResult = async (resultado) => {
+    await deleteResult(resultado);
+    await fetchUserImages(); 
+};
 
   return (
     <View style={styles.container}>

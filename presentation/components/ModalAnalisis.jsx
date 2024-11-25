@@ -4,16 +4,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 
 const ModalAnalisis = ({ isVisible, onClose, resultado}) => {
   const theme = useAppTheme();
- 
-  
-  if (!resultado) {
-    console.log("No se proporcionó un resultado.");
-  } else {
-    console.log("Resultado del modal análisis: ", resultado);
-    console.log("--------------------");
-    console.log("Fecha del modal análisis: ", resultado.fecha);
-    console.log("Análisis del modal análisis: ", resultado.analysis);
-  }
 
   return (
     <Modal animationType="slide" transparent={true} visible={isVisible}>

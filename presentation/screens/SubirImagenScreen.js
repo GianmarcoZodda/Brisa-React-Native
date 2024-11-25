@@ -89,8 +89,8 @@ const SubirImagenScreen = () => {
     const formData = new FormData();
     formData.append('file', {
       uri: imagen,
-      type: 'image/jpeg',  // Asegúrate de que el tipo de archivo sea correcto
-      name: 'imagen.jpg',  // Nombre del archivo
+      type: 'image/jpeg',  
+      name: 'imagen.jpg',  
     });
 
     try {
@@ -98,7 +98,7 @@ const SubirImagenScreen = () => {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data', // Necesario para subir imágenes
+          'Content-Type': 'multipart/form-data', 
         },
         body: formData,
       });

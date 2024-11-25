@@ -24,6 +24,5 @@ const DarkTheme = {
   // Hook para obtener el esquema de color
   export const useTheme = () => {
     const scheme = useColorScheme();
-    console.log("Current scheme:", scheme);
     return scheme === 'dark' ? DarkTheme : LightTheme;
   };

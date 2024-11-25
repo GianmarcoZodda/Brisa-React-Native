@@ -1,6 +1,6 @@
 import axios from 'axios';
 import API_URL_BACKEND from './api/apiUrl';
-import {errorDeConexion, errorDesconocido} from '../utils/strings/strings';
+import {errorDeConexion, errorDesconocido, errorServidor, sinEliminarCuenta, sinEliminarResultado, sinToken} from '../utils/strings/strings';
 
 export const deleteAccount = async (id, token) => {
     try {
@@ -10,23 +10,22 @@ export const deleteAccount = async (id, token) => {
             },
         });
 
-       
         if (response.status === 200) {
             return response;  
         } else {
-            throw new Error("No se pudo eliminar la cuenta.");
+            throw new Error(sinEliminarCuenta);
         }
     } catch (error) {
         if (error.response) {
             // Error del servidor
-            throw new Error(error.response.data.message || "Error en el servidor.");
+            throw new Error(error.response.data.message || errorServidor);
         } else if (error.request) {
             // Error en la solicitud
-            console.log("Error de conexión")
+            console.log(errorDeConexion)
             throw new Error(errorDeConexion);
         } else {
             // Otros errores
-            console.log("Error desconocido")
+            console.log(errorDesconocido)
             throw new Error(errorDesconocido);
         }
     }
@@ -44,19 +43,48 @@ export const deleteResult = async (fecha, horario, token) => {
         if (response.status === 200) {
             return response;  
         } else {
-            throw new Error("No se pudo eliminar el resultado.");
+            throw new Error(sinEliminarResultado);
         }
     } catch (error) {
         if (error.response) {
             // Error del servidor
-            throw new Error(error.response.data.message || "Error en el servidor.");
+            throw new Error(error.response.data.message || errorServidor);
         } else if (error.request) {
             // Error en la solicitud
-            console.log("Error de conexión")
+            console.log(errorDeConexion)
             throw new Error(errorDeConexion);
         } else {
             // Otros errores
-            console.log("Error desconocido")
+            console.log(errorDesconocido)
+            throw new Error(errorDesconocido);
+        }
+    }
+};
+
+export const fetchUserImages = async (token) => {
+    if (!token) {
+        throw new Error(sinToken);
+    }
+
+    try {
+        const response = await axios.get(`${API_URL_BACKEND}imagenes`, {
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                'Cache-Control': 'no-cache'
+            }
+        });
+        
+        return response.data.images || []; 
+        
+    } catch (error) {
+        if (error.response) {
+            console.error(errorServidor, " ", error.response.data.message || error.response.status);
+            throw new Error(error.response.data.message || errorServidor);
+        } else if (error.request) {
+            console.error(errorDeConexion, " ", error.message);
+            throw new Error(errorDeConexion);
+        } else {
+            console.error(errorDesconocido, " ", error.message);
             throw new Error(errorDesconocido);
         }
     }

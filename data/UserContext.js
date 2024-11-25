@@ -1,12 +1,13 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useAuth } from './AuthContext';  
-import { deleteAccount as deleteAccountService, deleteResult as deleteResultService } from './UserService';
+import { deleteAccount as deleteAccountService, deleteResult as deleteResultService, fetchUserImages as fetchUserImagesService } from './UserService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const { setError, setUser, setToken, setIsAuthenticated } = useAuth();  
+    const [images, setImages] = useState([]);   //para usar con el fetch
 
     const deleteAccount = async (navigation) => {
         setError(null);  
@@ -14,8 +15,6 @@ export const UserProvider = ({ children }) => {
         try {
             const token = await AsyncStorage.getItem('authToken');
             const user = JSON.parse(await AsyncStorage.getItem('user'));
-            console.log("Token cargado desde AsyncStorage en userContext:", token)
-            console.log("User cargado desde AsyncStorage en userContext:", user)
 
             if (!token || !user) {
                 throw new Error("No se encontró token o usuario.");
@@ -24,7 +23,6 @@ export const UserProvider = ({ children }) => {
             const response = await deleteAccountService(user.id, token);
   
             if (response.status === 200) {
-                console.log('Cuenta eliminada con éxito');
                 
                 await AsyncStorage.removeItem('authToken');
                 await AsyncStorage.removeItem('user');
@@ -44,18 +42,11 @@ export const UserProvider = ({ children }) => {
 
    
 
-const deleteResult = async (resultado) => {
-    
+const deleteResult = async (resultado) => {   
     try {
         const {fecha, horario} = resultado;
-        console.log("imagen: ",resultado)
-        console.log("----------")
-        console.log("fecha: ",fecha)
-        console.log("horario: ",horario)
-        console.log("----------")
 
         const token = await AsyncStorage.getItem('authToken');
-        console.log("Token cargado desde AsyncStorage en userContext:", token)
 
         if (!token) {
             throw new Error("No se encontró token");
@@ -80,8 +71,27 @@ const deleteResult = async (resultado) => {
     }
 };
 
+
+
+const fetchUserImages = async () => {
+    try {
+      const token = await AsyncStorage.getItem('authToken');
+
+      const imagenes = await fetchUserImagesService(token);
+
+      setImages(imagenes || []); 
+      return imagenes;
+    } catch (error) {
+      console.error('Error fetching images en el context:', error);
+      setImages([]); 
+      throw error;
+    }
+  };
+
+
+
 return (
-    <UserContext.Provider value={{ deleteAccount, deleteResult }}>
+    <UserContext.Provider value={{ deleteAccount, deleteResult, fetchUserImages, images }}>
         {children}
     </UserContext.Provider>
 );
