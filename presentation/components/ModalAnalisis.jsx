@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppTheme } from '../../data/ThemeContext';
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import strings from '../../utils/strings/strings';
 
 const ModalAnalisis = ({ isVisible, onClose, resultado}) => {
   const theme = useAppTheme();
@@ -11,7 +12,7 @@ const ModalAnalisis = ({ isVisible, onClose, resultado}) => {
         <View style={[styles.container, { backgroundColor: theme.background }]}>
           
           <Text style={[styles.title, { color: theme.inverseBackground }]}>
-            Resultado del Analisis
+            {strings.resAnalisis}
           </Text>
 
           {/* Fecha y hora */}
@@ -35,7 +36,7 @@ const ModalAnalisis = ({ isVisible, onClose, resultado}) => {
      
           {/* Botón de cerrar */}
           <TouchableOpacity style={[styles.closeButton, { backgroundColor: theme.primary }]} onPress={onClose}>
-            <Text style={[styles.closeButtonText, { color: theme.inverseBackground }]}>CERRAR</Text>
+            <Text style={[styles.closeButtonText, { color: theme.inverseBackground }]}>{strings.CERRAR}</Text>
           </TouchableOpacity>
         </View>
       </View>

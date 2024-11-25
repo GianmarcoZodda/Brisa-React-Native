@@ -4,7 +4,7 @@ import { useTheme } from '../../utils/theme';
 import EyeIcon from "../components/EyeIcon";
 import strings from "../../utils/strings/strings";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Btn from '../../presentation/components/Btn';
+import Btn from '../components/Btn';
 
 const AboutUsScreen = () => {
   const theme = useTheme();
@@ -110,7 +110,7 @@ const AboutUsScreen = () => {
           <View style={[styles.modalContent, {backgroundColor: theme.background}]}>
             <Text style={[styles.modalText, { color: theme.inverseBackground }]}>{selectedText}</Text>
             <TouchableOpacity onPress={hideModal} style={[styles.modalCloseButton, {backgroundColor: theme.primary}]}>
-              <Text style={{color: theme.background}}>Cerrar</Text>
+              <Text style={{color: theme.background}}>{strings.cerrar}</Text>
             </TouchableOpacity>
           </View>
         </View>

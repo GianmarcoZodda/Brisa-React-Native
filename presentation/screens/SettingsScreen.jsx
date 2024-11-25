@@ -64,13 +64,13 @@ const SettingsScreen = () => {
 
       <Btn
          onPress={() => logout(navigation)} 
-         text="Cerrar Sesión"
+         text={strings.logOut}
          backgroundColor={theme.secondary}
          />
 
        <Btn
          onPress={() =>  setIsModalVisible(true)} 
-         text="Eliminar Cuenta"
+         text={strings.deleteAccount}
          backgroundColor={theme.buttonRed}
          />
 

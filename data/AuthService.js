@@ -1,6 +1,6 @@
 import axios from 'axios';
 import API_URL_BACKEND from "./api/apiUrl"
-import {credencialesIncorrectas, errorDeConexion, errorDesconocido} from '../utils/strings/strings';
+import {credencialesIncorrectas, errorDeConexion, errorDesconocido, errorServidor} from '../utils/strings/strings';
 
 export const login = async (email, password) => {
 
@@ -21,15 +21,15 @@ export const login = async (email, password) => {
   } catch (error) {
       if (error.response) {
           // Si el error tiene respuesta, lo que significa que es un error HTTP
-          console.log("Error en la respuesta del servidor: ", error.response.data);
-          throw new Error(error.response.data.message || errorDeConexion);
+          console.log(errorServidor, " ", error.response.data);
+          throw new Error(error.response.data.message || errorServidor);
       } else if (error.request) {
           // Si no hay respuesta (por ejemplo, la solicitud no se envió correctamente)
-          console.log("Error en la solicitud: ", error.request);
+          console.log(errorDeConexion," ", error.request);
           throw new Error(errorDeConexion);
       } else {
           // Cualquier otro error no relacionado con la respuesta HTTP
-          console.log("Error desconocido: ", error.message);
+          console.log(errorDesconocido, " ", error.message);
           throw new Error(errorDesconocido);
       }
   }
@@ -49,15 +49,15 @@ export const register = async (username, email, password) => {
     }catch (error){
         if (error.response) {
             // Si el error tiene respuesta, lo que significa que es un error HTTP
-            console.log("Error en la respuesta del servidor: ", error.response.data);
-            throw new Error(error.response.data.message || errorDeConexion);
+            console.log(errorServidor, " ", error.response.data);
+            throw new Error(error.response.data.message || errorServidor);
         } else if (error.request) {
             // Si no hay respuesta (por ejemplo, la solicitud no se envió correctamente)
-            console.log("Error en la solicitud: ", error.request);
+            console.log(errorDeConexion, " ", error.request);
             throw new Error(errorDeConexion);
         } else {
             // Cualquier otro error no relacionado con la respuesta HTTP
-            console.log("Error desconocido: ", error.message);
+            console.log(errorDesconocido," ", error.message);
             throw new Error(errorDesconocido);
         }
     }

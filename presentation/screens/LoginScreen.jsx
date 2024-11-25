@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import InputField from '../../presentation/components/InputField'; 
-import Btn from '../../presentation/components/Btn';
+import InputField from '../components/InputField'; 
+import Btn from '../components/Btn';
 import strings from '../../utils/strings/strings';
 import { useAppTheme } from '../../data/ThemeContext';
 import { useNavigation } from '@react-navigation/native';

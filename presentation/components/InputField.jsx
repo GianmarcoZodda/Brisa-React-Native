@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useAppTheme } from '../../data/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
 
 const InputField = ({ value, onValueChange, label, isPassword = false , error}) => {
   const theme = useAppTheme();
   const [showPassword, setShowPassword] = useState(false); 
+  const [isLocked, setIsLocked] = useState(true); 
 
   return (
     <View style={styles.container}>
@@ -17,11 +19,11 @@ const InputField = ({ value, onValueChange, label, isPassword = false , error}) 
           secureTextEntry={isPassword && !showPassword} 
         />
         {isPassword && (
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeButton}>
-            <Image
-              source={require('../../assets/PassIcon.png')} 
-              style={[{ width: 24, height: 24 }, {color: theme.inverseBackground}]} 
-            />
+          <TouchableOpacity onPress={() => {
+            setShowPassword(!showPassword); 
+            setIsLocked(!isLocked)}
+          } style={styles.eyeButton}>
+            <Ionicons name={isLocked ? 'lock-closed' : 'lock-open'}  size={24} color={theme.inverseBackground}/>
           </TouchableOpacity>
         )}
       </View>

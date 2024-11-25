@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppTheme } from '../../data/ThemeContext';
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import strings from '../../utils/strings/strings';
 
 const ModalDelete = ({ isVisible, onClose, onDelete }) => {
   const theme = useAppTheme();
@@ -13,17 +14,17 @@ const ModalDelete = ({ isVisible, onClose, onDelete }) => {
         <View style={[styles.container, { backgroundColor: theme.background }]}>
 
           <Text style={[styles.title, { color: theme.inverseBackground }]}>
-            ¿Seguro deseas eliminar?
+            {strings.seguroEliminar}
           </Text>
 
           <View style={styles.btnContainer}>
            
             <TouchableOpacity style={[styles.yesButton, {backgroundColor: theme.buttonRed}]} onPress={onDelete}>
-              <Text style={[styles.btnText, {color: theme.inverseBackground}]}>ELIMINAR</Text>
+              <Text style={[styles.btnText, {color: theme.inverseBackground}]}>{strings.ELIMINAR}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={[styles.noButton, {backgroundColor: theme.primary}]} onPress={onClose}>
-              <Text style={[styles.btnText, {color: theme.inverseBackground}]}>CERRAR</Text>
+              <Text style={[styles.btnText, {color: theme.inverseBackground}]}>{strings.CERRAR}</Text>
             </TouchableOpacity>
 
           </View>
