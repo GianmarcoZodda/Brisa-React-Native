@@ -11,8 +11,8 @@ Gestión de imágenes: Subida de imágenes directamente desde el dispositivo mó
 Resultados detallados: Visualización de análisis específicos relacionados con enfermedades o anomalías detectadas en las retinas.
 Interfaz intuitiva: Diseñada para una navegación fácil y accesible.
 Integración con APIs: Comunicación en tiempo real con el backend y las APIs de análisis.
-Tecnologías utilizadas
 
+Tecnologías utilizadas
 React Native: Para el desarrollo multiplataforma (Android e iOS).
 Axios: Para las peticiones HTTP al backend.
 Expo: Para pruebas rápidas y despliegue (si estás usando Expo).
