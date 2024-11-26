@@ -28,9 +28,12 @@ const ModalAnalisis = ({ isVisible, onClose, resultado}) => {
          
           <View style={styles.analysisContainer}>
             {resultado.analysis?.map((item, index) => (
-              <Text key={index} style={[styles.analysisText, { color: theme.inverseBackground }]}>
+              item != "NO_DR" && (
+                <Text key={index} style={[styles.analysisText, { color: theme.inverseBackground }]}>
                 {item}
               </Text>
+              )
+              
             ))}
           </View>
      
