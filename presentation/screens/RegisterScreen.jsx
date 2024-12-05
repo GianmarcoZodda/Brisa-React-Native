@@ -78,13 +78,13 @@ return(
 <View style={styles.container}>
     <EyeIcon></EyeIcon>
 
-    <InputField value={username} onValueChange={setUsername} label="Username" error={usernameError}></InputField>
+    <InputField value={username} onValueChange={setUsername} label="Nombre" error={usernameError}></InputField>
 
     <InputField value={email} onValueChange={setEmail} label="Email" error={emailError}></InputField>
 
-    <InputField value={password} onValueChange={setPassword} label="Password" isPassword={true} error={passwordError}></InputField>
+    <InputField value={password} onValueChange={setPassword} label="Contraseña" isPassword={true} error={passwordError}></InputField>
 
-    <InputField value={secondPassword} onValueChange={setSecondPassword} label="Confirm Password" isPassword={true} error={secondPasswordError}></InputField>
+    <InputField value={secondPassword} onValueChange={setSecondPassword} label="Confirma contraseña" isPassword={true} error={secondPasswordError}></InputField>
 
     <Btn  onPress={handleRegister}
         text={strings.registrarme}></Btn>

@@ -121,7 +121,7 @@ const strings = {
     preg4body: "#  Sí, BRISA toma medidas de seguridad para proteger la información personal y las imágenes.",
     /*OTRO*/
     logOut: "Cerrar sesion",
-    deleteAccount: "Eliminar Cuenta",
+    deleteAccount: "Borrar cuenta",
 
 
     /*HOME SCREEN*/

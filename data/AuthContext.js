@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
   }
   
   const logout = async (navigation) => {
-    navigation.navigate("Login")
+    navigation.replace("Login")
     setToken(null);
     setUser(null);
     setIsAuthenticated(false);

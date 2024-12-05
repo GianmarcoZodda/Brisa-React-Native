@@ -77,7 +77,7 @@ const LoginScreen = () => {
       <InputField
         value={password}
         onValueChange={setPassword}
-        label="Password"
+        label="Contraseña"
         isPassword={true}
         error={passwordError}
       />
